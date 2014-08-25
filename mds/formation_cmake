@@ -1,0 +1,151 @@
+Chaine de production C :
+
+C + directives de compilation -preprocesseur-> C -compilateur-> objet .s (assembleur symbolique) -assembleur-> binaire objet .o -lieur-> programme ELF executable
+
+cat > hello.c <<EOF
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  printf("Hello world\n");
+  return(EXIT_SUCCESS);
+}
+EOF
+
+gcc -o hello.p.c -E hello.c
+gcc -o hello.s -S hello.p.c
+gcc -o hello.o -c hello.s
+gcc -o hello hello.o
+./hello
+
+cat > hello.c <<EOF
+int main(void) {
+  puts("Hello world\n");
+  return(0);
+}
+EOF
+
+Bibliotheques statiques et dynamiques : resolution de liens a la compilation/a l'execution
+
+ldd hello
+
+gcc -static -o hello hello.o
+
+cat > hello.c <<EOF
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(void) {
+  printf("sqrt(%f) = %f\n", 4, sqrt(4));
+  return(EXIT_SUCCESS);
+}
+EOF
+
+gcc -O0 -o hello hello.c
+
+cat > hello.c <<EOF
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(void) {
+  double f = 4;
+  printf("sqrt(%f) = %f\n", f, sqrt(f));
+  return(EXIT_SUCCESS);
+}
+EOF
+
+Pas besoin de -lm en -O2
+
+cat > hello.c <<EOF
+#include <time.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int main(void) {
+  srandom(time(NULL));
+  float f = random() / RAND_MAX;
+  printf("sqrt(%f) = %f\n", f, sqrt(f));
+  return(EXIT_SUCCESS);
+}
+EOF
+
+
+mkdir -p libprint_hello/src
+cat > libprint_hello/src/print_hello.c <<EOF
+#include "print_hello.h"
+#include <stdio.h>
+
+void print_hello(void) {
+  printf("Hello world.\n");
+}
+EOF
+
+mkdir libprint_hello/include
+cat > libprint_hello/include/print_hello.h <<EOF
+void print_hello(void);
+EOF
+
+cat > main.c <<EOF
+#include <print_hello.h>
+#include <stdlib.h>
+
+int main(void) {
+  print_hello();
+  return(EXIT_SUCCESS);
+}
+EOF
+
+gcc -Ilibprint_hello/include/ -E -o main.p.c main.c
+
+gcc -o hello libprint_hello/src/print_hello.c -Ilibprint_hello/include/ main.c
+
+mkdir -p libprint_hello/lib
+gcc -shared -fPIC -o libprint_hello/lib/libprint_hello.so -Ilibprint_hello/include/ libprint_hello/src/print_hello.c
+gcc -o hello main.c -lprint_hello -Llibprint_hello/lib/ -Ilibprint_hello/include/
+
+
+gcc -c -o libprint_hello/lib/print_hello.o libprint_hello/src/print_hello.c
+ar rcs libprint_hello/lib/libprint_hello.a libprint_hello/lib/print_hello.o
+gcc -o hello main.c -lprint_hello -Llibprint_hello/lib/ -Ilibprint_hello/include/ -static
+
+
+cat > Makefile <<EOF
+all: hello
+
+libprint_hello/lib/print_hello.o: libprint_hello/src/print_hello.c
+	gcc -c -o libprint_hello/lib/print_hello.o libprint_hello/src/print_hello.c
+
+        
+libprint_hello/lib/libprint_hello.a: libprint_hello/lib/print_hello.o
+	ar rcs libprint_hello/lib/libprint_hello.a libprint_hello/lib/print_hello.o
+
+hello: main.c libprint_hello/lib/libprint_hello.a
+        gcc -o hello main.c -lprint_hello -Llibprint_hello/lib/ -Ilibprint_hello/include/ -static
+EOF
+
+cat > Hello.java <<EOF
+public final class Hello {
+  private int i = 0;
+  public static void main(String[] args) {
+    System.out.println("Hello world.");
+  }
+}
+EOF
+
+javac Hello.java
+java -cp . Hello
+javap -p -c Hello.class
+  
+gcc: knows how to build an executable from .c source files, but no automatic dependency resolution
+javac: knows how to build a .class from a .java, and automatically resolves dependencies
+Makefile: generic but primitive tool to specify how to build target files from dependencies
+Ant, Maven: languages to specify dependencies and packaging rules for Java
+Ocamlbuild, OPAM: ... for OCaml
+Cabal: ... for Haskell
+latexmk: automatic build for LaTeX
+CMake, ...: generic and high-level languages to specify dependencies and packaging rules
+...
+

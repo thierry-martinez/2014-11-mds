@@ -1,0 +1,13 @@
+The prefered method to intall IPython notebook is using miniconda.
+
+Install miniconda, from:
+
+    http://conda.pydata.org/miniconda.html
+
+Install IPython notebook:
+
+    conda install ipython-notebook
+
+Start IPython notebook:
+
+    ipython notebook --browser=firefox
