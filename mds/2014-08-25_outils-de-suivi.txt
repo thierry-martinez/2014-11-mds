@@ -1,0 +1,28 @@
+Thierry, Cécile
+
+Communication interaction
+
+Support mailing-list -> issue tracker
+VS issue tracker exposed
+
+Issue tracker 
+
+      feature request or bug report
+      severity
+      
+      reproducibility:
+	description
+	minimal complete example
+	operating system
+      	version
+      
+      developer:
+            priority / milestone
+      	    component
+
+      status (workflow)
+
+Pull Request
+     revision control system integration : issue + patch/changes
+
+Timeline
