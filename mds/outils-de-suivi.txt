@@ -26,3 +26,6 @@ Pull Request
      revision control system integration : issue + patch/changes
 
 Timeline
+
+Ajout Cécile 26/08/14 : 
+Scrum => epics, themes, stories, cards, lines <-> unit tests
