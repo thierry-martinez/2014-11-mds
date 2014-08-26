@@ -1,0 +1,14 @@
+--------------------------------------------------------------------------------
+
+- conventions d'écriture de code (Cédric et David) 2h
+
+- chaîne de production avec cmake (Thierry et Cédric) 3h
+- versionnement avec git (Thierry et David) 3h
+
+- tests avec cppUnit (Cédric et Thierry) 3h
+- intégration continue avec jenkins (David et Thierry) 2h
+
+- méthodes de gestion de projets avec Scrum (Cécile et Cédric) 2h
+- outils de suivi avec bugzilla ou Mantis (Thierry et Cécile) 2h
+
+--------------------------------------------------------------------------------
