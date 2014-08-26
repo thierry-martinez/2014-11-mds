@@ -1,0 +1,81 @@
+--------------------------------------------------------------------------------
+
+Cédric, Cécile : project management
+
+1- what is it, what is for ?
+
+  - roles: customer, manager, developer, tester, user (responsibility
+    assignment matrix RACI = Responsible + Approver + Consulted +
+    Informed)
+
+  - parameters: team size, team experience, release date, ...
+
+  - brief story of developments models
+
+  - famous examples of failure
+  - risks of wrong management for each involved person (cf roles)
+
+2- Waterfall, V-Model: pros and cons
+
+  plan driven: fixed features 
+
+  Waterfall: analysis -> design -> develop -> test -> deploy
+
+  V-Model: functional requirements (general, detailed -
+  architecture), design (developer), implementation, tests (unit,
+  integration, validation), maintenance
+
+  - following a plan
+  - contract negociation
+  - processes and tools
+  - comprehensive documentation
+
+  - test at the end
+
+3- agile: 
+
+  value/vision driven: fixed cost and schedule
+
+  - brief story of agile methods
+    => framework Scrum (and XP)
+
+  - roles: Scrum master (stackeholder process cf. RACI), product owner
+    (stackeholder product), development team (self-management)
+
+  quality = working software or ROI
+
+  - responding to change (flexibility)
+  - customer collaboration (visibility)
+  - individuals and interactions (feedback)
+  - working software (quality) -> test first TDD
+
+  pair programming (XP), code review
+
+  product backlog -> sprint backlog -> sprint with daily meetings ->
+  potentially shippable product increment
+
+  quality improvement = PDCA Plan Do Check Act/Adjust (introspection)
+  traditional: only 1 PDCA 
+  Scrum: 3 PDCA = 
+  	 1- customer communication 
+  	    Check = CCC  -> Adjust = product backlog 
+	    -> Plan = customer -> Do = demonstration (product owner)
+	 2- working software
+  	    Check = daily meeting -> Adjust 
+	    -> Plan -> Do
+	 3- collaboration and responsabilities
+  	    Check -> Adjust = sprint 
+	    -> Plan = developer -> Do = retrospective
+
+estimation tâches en heures idéales
+
+
+atelier 10 pays 1 critère ?
+
+--------------------------------------------------------------------------------
+
+Implémenter Scrum tout au long de la formation ?
+
+Ajout de Cécile dans outils-de-suivi.txt
+
+--------------------------------------------------------------------------------
