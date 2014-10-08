@@ -1,6 +1,12 @@
 --------------------------------------------------------------------------------
-
 Cédric, Cécile : project management
+I- 26/08/2014
+II- 08/10/2014
+
+--------------------------------------------------------------------------------
+I- 26/08/2014
+partie présentation
+--------------------------------------------------------------------------------
 
 1- what is it, what is for ?
 
@@ -15,6 +21,7 @@ Cédric, Cécile : project management
   - famous examples of failure
   - risks of wrong management for each involved person (cf roles)
 
+--------------------------------------------------------------------------------
 2- Waterfall, V-Model: pros and cons
 
   plan driven: fixed features 
@@ -32,6 +39,7 @@ Cédric, Cécile : project management
 
   - test at the end
 
+--------------------------------------------------------------------------------
 3- agile: 
 
   value/vision driven: fixed cost and schedule
@@ -69,13 +77,75 @@ Cédric, Cécile : project management
 
 estimation tâches en heures idéales
 
-
+--------------------------------------------------------------------------------
 atelier 10 pays 1 critère ?
 
 --------------------------------------------------------------------------------
-
 Implémenter Scrum tout au long de la formation ?
 
 Ajout de Cécile dans outils-de-suivi.txt
+
+--------------------------------------------------------------------------------
+II- 08/10/2014
+partie présentation + partie pratique
+
+--------------------------------------------------------------------------------
+suite 2 septembre 2014 (cf. PROJ) : 
+
+      équipe(s) non formée(s) PROJ
+
+PROJ
+(pour)quoi ? intérêt
+comment ? traditionnel, agilité
+outil : Scrum et XP
+TP : cartes pour les fonctionnalités à implémenter dans le TP VERS + tableau 
+
+PM 1 3h : PROJ + SUIV puis TP PROJ -> cahier de produit
+(fonctionnalités extraites du code, testables) bien décrit puis ajout
+de nouvelles fonctionnalités dans le cahier de produit
+
+AM 3 2h30 : CONV puis TP PROJ + TP CONV -> fonctionnalités développeur
+(remaniement de code) bien décrites puis tetris testé et bien écrit
+(Coding Dojo => salle avec écran de projection)
+
+--------------------------------------------------------------------------------
+     pre : un code compilable automatiquement, exécutable
+
+PM 1 = 1h + 30 min pause + 1h30 : 
+   présentation PROJ 
+   pause
+   présentation SUIV
+   pratique PROJ et SUIV
+   	    - extraire des fonctionnalités du code et indiquer comment les 
+	      tester : cartes et post-it ; une fonctionnalité chacun à entrer 
+	      dans l'outil de suivi ; présentation du corrigé dans l'outil de 
+	      suivi
+	    - ajouter dans le cahier de nouvelles fonctionnalités testables : 
+	      cartes et post-it ; une fonctionnalités chacun à entrer dans 
+	      l'outil de suivi ; présentation du corrigé (cf. PM 3)
+
+     post : cahier de produit qui décrit des fonctionnalités du code
+       	    et de futures fonctionnalités
+
+--------------------------------------------------------------------------------
+     pre : un code testé, intégré
+
+AM 3 = 1h30 + 30 min pause + 1h30 :
+   présentation CONV 
+   pratique PROJ 
+   	    - ajouter dans le cahier des tâches de remaniement de code :
+	      cartes et post-it ; une fonctionnalité chacun à entrer
+	      dans l'outil de suivi ; présentation du corrigé dans
+	      l'outil de suivi et fermeture des doublons
+   pause 
+   pratique CONV 
+	    - remanier le code (grâce aux tests) en Coding Dojo
+
+     post : code bien écrit
+
+--------------------------------------------------------------------------------
+matériel : 
+	 cartes, post-it, stylos
+	 tableau mural, marqueurs
 
 --------------------------------------------------------------------------------
