@@ -1,0 +1,140 @@
+--------------------------------------------------------------------------------
+2 septembre
+14h15 - 17h
+--------------------------------------------------------------------------------
+Cédric Doucet
+David Froger
+Thierry Martinez
+Cécile Stentzel
+excusé : Xavier Clerc
+--------------------------------------------------------------------------------
+	1. ordre des sections ? 
+	2. implémenter Scrum tout au long de la formation ?
+	3. utiliser la technique Pomodoro ?
+--------------------------------------------------------------------------------
+1.  ordre des sections ?
+
+CONV : conventions d'écriture de code avec kwstyle (Cédric et David),
+2 heures à distiller (jour 1 ?)
+
+• Jour 1 :
+    PROD :  chaîne de production avec cmake (Thierry et Cédric), 3 heures
+    VERS : versionnement avec git (Thierry et David), 3 heures
+
+• Jour 2 : 
+    TEST : tests avec cppUnit (Cédric et Thierry), 3 heures
+    INT :  intégration continue avec jenkins (David et Thierry), 2 heures à 
+    	distiller
+
+• Jour 3 : 
+    PROJ : méthodes de gestion de projets avec Scrum (Cécile et Cédric), 2 
+    	 heures
+    SUIV :  outils de suivi avec bugzilla ou Mantis (Thierry et Cécile), 2 
+    	 heures
+--------------------------------------------------------------------------------
+	9h café
+9h30-10h30 = 1h
+          pause 30 min
+11h-12h30 = 1h30
+          pause déjeuner 1h30
+14h-15h30 = 1h30
+          pause 30 min
+16h-17h30 = 1h30
+	Soit 5h30 de formation par journée environ.
+Les pauses pouvant être utilisées par les auditeurs pour continuer les
+manipulations (TP Tetris).
+
+programmation en binômes
+--------------------------------------------------------------------------------
+tetris :
+	sur GitHub VERS
+	code ne respecte pas de conventions d'écriture CONV
+	ne contient aucun test TEST
+	compile avec cmake (pas documenté) PROD INT
+	équipe(s) non formée(s) PROJ
+	cahier de fonctionnalités ? SUIV
+
+nouveau tetris de départ sans le fichier cmake ? TODO CDO TMA
+--------------------------------------------------------------------------------
+AM 1 2h30 : VERS + PROD puis TP PROD -> tetris s'exécute en local pour
+chaque binôme puis les formateurs poussent le fichier cmake
+
+PM 1 3h : PROJ + SUIV puis TP PROJ *SUIV* -> cahier de produit
+(fonctionnalités extraites du code, testables) bien décrit puis ajout
+de nouvelles fonctionnalités dans le cahier de produit
+
+AM 2 2h30 : INT puis TP INT -> construction automatique, support pour
+les automatisations ultérieures 
+
+déjeuner amélioré (2h) ?
+
+PM 2 2h30 : TEST puis TP TEST -> fonctionnalités déjà présentes testées
+
+AM 3 2h30 : CONV puis TP PROJ + TP CONV -> fonctionnalités développeur
+(remaniement de code) bien décrites puis tetris testé et bien écrit
+(Coding Dojo => salle avec écran de projection)
+
+PM 3 3h : TP TEST + TP VERS -> de nouvelles fonctionnalités
+utilisateurs (cf. PM 1) testées (TDD) et bien écrites
+--------------------------------------------------------------------------------
+Bordeaux 2012 Prace :
+	 What is for ?
+	 State of the art
+	 Focusing on a product
+
+CONV 
+(pour)quoi ? lisibilité
+comment ?
+	- Noms significatifs : nommage
+	- Fonctions : niveaux d'appel
+	- Commentaires
+	- Mise en forme
+outil : kwstyle
+TP : définition de conventions et corrections en Coding Dojo
+
+PROD
+(pour)quoi ? Chaine de production C
+Bibliotheques statiques et dynamiques : résolution de liens à la
+compilation/à l'execution
+gcc: knows how to build an executable from .c source files, but no
+automatic dependency resolution
+comment ?
+javac, Makefile, Ant, Maven, Ocamlbuild, OPAM, Cabal, latexmk, CMake
+outils : gcc et cmake
+TP : automatisation de la compilation et de la construction de paquets
+
+VERS
+(pour)quoi ? suivi personnel des versions, collaboration, distribution
+comment ? gestion de version, dépôt GitHub
+outil : git
+TP : implémentations, push, pull, merge
+
+TEST
+?
+
+INT
+(pour)quoi ? assurer au fil du développement que le projet compile et
+est distribuable
+comment ? hudson, jenkins, travis, cruise control
+outil : travis
+TP : compilation de Tetris avec travis
+
+PROJ
+(pour)quoi ? intérêt
+comment ? traditionnel, agilité
+outil : Scrum et XP
+TP : cartes pour les fonctionnalités à implémenter dans le TP VERS + tableau 
+
+cartes : priorité (importance de la fonctionnalité)
+description de la fonctionnalité, comment la tester
+plusieurs niveaux de fonctionnalités
+savoir découper une épopée (fonctionnalité gros grain) en petites histoires
+estimation des coûts en points, monnaie locale (estimation du temps)
+
+SUIV
+(pour)quoi ? centraliser les rapports de défaut, les demandes de
+fonctionnalités, et les discussions y afférant.
+comment ? bugzilla, mantis et voir Scrum (JIRA)
+outil : tracker de git
+TP : ?
+--------------------------------------------------------------------------------
