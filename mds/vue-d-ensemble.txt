@@ -24,6 +24,29 @@ I- 26/08/2014
 II- 08/10/2014
 
 --------------------------------------------------------------------------------
+
+fonctionnalités de base du code : 
+	- grille
+	- une forme qui tombe
+	- déplacer la forme à droite : bouton flèche droite
+	- déplacer la forme à gauche : bouton flèche gauche
+	- tourner la forme : bouton flèche haut
+	- accélérer la descente de la forme : bouton flèche bas
+	- faire descendre la forme tout en bas : barre d'espacement
+	- ligne complète => score augmenté
+	- plusieurs lignes complètes à la fois => score bonus
+	- forme suivante affichée
+	- fin de jeu si grille saturée en hauteur
+
+--------------------------------------------------------------------------------
+
+bogue découvert par George : "New Game" fonctionne mal
+
+--------------------------------------------------------------------------------
+nouvelle fonctionnalité à développer : 
+	 - pause
+
+--------------------------------------------------------------------------------
      pre : code versionné, non compilé
 
 AM 1 = 1h30 + 30 min pause + 1h30 :
