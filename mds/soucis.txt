@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------------
+problèmes rencontrés 
+
+--------------------------------------------------------------------------------
+I- git push : HTTP request failed
+
+$ git push
+
+error: The requested URL returned error: 403 while accessing https://github.com/thierry-martinez/2014-11-mds.git/info/refs
+fatal: HTTP request failed
+
+résolution :
+
+dans .git/config
+	url = https://github.com/thierry-martinez/2014-11-mds.git
+remplacé par
+	url = ssh://git@github.com/thierry-martinez/2014-11-mds.git
+
+--------------------------------------------------------------------------------
+II- make : ‘GDK_KEY_space’ undeclared
+
+$ mkdir build
+$ cd build/
+$ cmake ..
+
+$ make
+
+Scanning dependencies of target tetris
+[100%] Building C object CMakeFiles/tetris.dir/tetris.c.o
+/nas/home3/s/stentzel/sources/sed/2014-11_formation-MdS_GitHub/tetris/tetris.c: In function ‘key_press_event’:
+/nas/home3/s/stentzel/sources/sed/2014-11_formation-MdS_GitHub/tetris/tetris.c:268: error: ‘GDK_KEY_space’ undeclared (first use in this function)
+/nas/home3/s/stentzel/sources/sed/2014-11_formation-MdS_GitHub/tetris/tetris.c:268: error: (Each undeclared identifier is reported only once
+/nas/home3/s/stentzel/sources/sed/2014-11_formation-MdS_GitHub/tetris/tetris.c:268: error: for each function it appears in.)
+make[2]: *** [CMakeFiles/tetris.dir/tetris.c.o] Erreur 1
+make[1]: *** [CMakeFiles/tetris.dir/all] Erreur 2
+make: *** [all] Erreur 2
+
+résolution :
+
+dans tetric.c
+  /* case GDK_KEY_space: */
+  /*   while (move_shape(0, 1, 0)); */
+  /*   break; */
+
+--------------------------------------------------------------------------------
