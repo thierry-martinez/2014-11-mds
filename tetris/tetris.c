@@ -7,8 +7,8 @@
 #define width 16
 #define height 16
 
-const unsigned int block_width = 16;
-const unsigned int block_height = 16;
+const unsigned int block_width = 32;
+const unsigned int block_height = 32;
 
 unsigned int grid[height][width];
 
@@ -28,11 +28,11 @@ struct shapes {
   int center[2];
   float colors[3];
 } shapes[shape_count] = {
-  { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 1, 0, 0 } },
-  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0, 1, 0 } },
-  { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, { 0, 0, 1 } },
-  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }, { 1, 1 }, { 1, 1, 0 } },
-  { { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }, { 2, 1 }, { 1, 0, 1 } } };
+  { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 0.20, 0.60, 0.86 } },
+  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0.18, 0.80, 0.44 } },
+  { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, { 0.90, 0.49, 0.13 } },
+  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }, { 1, 1 }, { 0.95, 0.77, 0.06 } },
+  { { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }, { 2, 1 }, { 0.09, 0.63, 0.52 } } };
 
 GtkWidget *window;
 
@@ -295,28 +295,38 @@ gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
 int main(int argc, char *argv[]) {
   GtkWidget *button_newgame, *hbox, *vbox, *drawing_area, *next_piece;
   gtk_init(&argc, &argv);
+
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
   g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+  g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(key_press_event), NULL);
+
   hbox = gtk_hbox_new(TRUE, 10);
   gtk_container_add(GTK_CONTAINER(window), hbox);
+
   drawing_area = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(hbox), drawing_area);
   gtk_widget_set_size_request(drawing_area, width * block_width, height * block_height);
   g_signal_connect(G_OBJECT(drawing_area), "realize", G_CALLBACK(realize), NULL);
   g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(drawing_area_expose_event), NULL);
+
   vbox = gtk_vbox_new(TRUE, 10);
   gtk_container_add(GTK_CONTAINER(hbox), vbox);
+
   button_newgame = gtk_button_new_with_label ("New game");
   g_signal_connect(button_newgame, "clicked", G_CALLBACK(button_newgame_clicked), NULL);
   gtk_container_add(GTK_CONTAINER(vbox), button_newgame);
+
   score_label = gtk_label_new("");
   gtk_container_add(GTK_CONTAINER (vbox), score_label);
+
   next_piece = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(vbox), next_piece);
   gtk_widget_set_size_request(next_piece, 4 * block_width, 4 * block_height);
   g_signal_connect(G_OBJECT(next_piece), "realize", G_CALLBACK(realize), NULL);
   g_signal_connect(G_OBJECT(next_piece), "expose_event", G_CALLBACK(next_piece_expose_event), NULL);
-  g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(key_press_event), NULL);
+
   new_game();
   gtk_widget_show(drawing_area);
   gtk_widget_show(next_piece);
