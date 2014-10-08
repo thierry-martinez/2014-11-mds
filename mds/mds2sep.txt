@@ -22,7 +22,7 @@ CONV : conventions d'écriture de code avec kwstyle (Cédric et David),
     VERS : versionnement avec git (Thierry et David), 3 heures
 
 • Jour 2 : 
-    TEST : tests avec cppUnit (Cédric et Thierry), 3 heures
+    TEST : tests avec cppUnit (Cédric et Cécile), 3 heures
     INT :  intégration continue avec jenkins (David et Thierry), 2 heures à 
     	distiller
 
