@@ -10,11 +10,35 @@
 const unsigned int block_width = 32;
 const unsigned int block_height = 32;
 
+#define _countof(a) (sizeof(a)/sizeof(*(a)))
+void trace(char *fmt, ...) {
+  va_list vl;
+  time_t now = time(NULL);
+  struct tm * ptm = localtime(&now);
+  char time[32] = {0}, message[1024] = {0};
+
+  va_start(vl, fmt);
+  strftime(time, _countof(time), "%d/%m %H:%M:%S", ptm);
+  vsprintf(message, fmt, vl); 
+  printf("[%s] %s\r\n", time, message);
+  fflush(stdout);
+
+  va_end(vl);
+}
+
 unsigned int grid[height][width];
 
 #define shape_count 5
 
 unsigned int next_shape;
+
+typedef enum {
+  Normal = 0,
+  Paused,
+  Finished
+} GameState;
+
+GameState game_state;
 
 struct shape {
   unsigned int index;
@@ -190,6 +214,7 @@ int new_shape() {
     fill_current_shape(current_shape.index + 1);
     gtk_widget_queue_draw(window);
   }
+  trace("new_shape returned %d", v);
   return v;
 }
 
@@ -241,10 +266,13 @@ void detect_lines() {
 }
 
 gint timeout(gpointer data) {
-  if (!(move_shape(0, 1, 0))) {
-    detect_lines();
-    if (!new_shape()) {
-      return 0;
+  if (game_state == Normal) {
+    if (!(move_shape(0, 1, 0))) {
+      detect_lines();
+      if (!new_shape()) {
+        game_state = Finished;
+        trace("game over");
+      }
     }
   }
   g_timeout_add(500, timeout, NULL);
@@ -252,6 +280,7 @@ gint timeout(gpointer data) {
 }
 
 gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
+  trace("key_press_event(%d)", event->keyval);
   switch (event->keyval) {
   case GDK_Left:
     move_shape(-1, 0, 0);
@@ -285,6 +314,7 @@ void new_game() {
   fill_current_shape(current_shape.index + 1);
   update_score();
   gtk_widget_queue_draw(window);
+  game_state = Normal;
 }
 
 gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
@@ -292,8 +322,20 @@ gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
+gboolean button_pause_clicked(GtkWidget *widget, gpointer data) {
+  trace("button pause clicked");
+  if (game_state == Normal) {
+    game_state = Paused;
+    gtk_button_set_label(GTK_BUTTON(widget), "Resume");
+  } else if (game_state == Paused) {
+    game_state = Normal;
+    gtk_button_set_label(GTK_BUTTON(widget), "Pause");
+  }
+  return TRUE;
+}
+
 int main(int argc, char *argv[]) {
-  GtkWidget *button_newgame, *hbox, *vbox, *drawing_area, *next_piece;
+  GtkWidget *button_newgame, *button_pause, *hbox, *vbox, *bbox, *drawing_area, *next_piece;
   gtk_init(&argc, &argv);
 
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -314,9 +356,16 @@ int main(int argc, char *argv[]) {
   vbox = gtk_vbox_new(TRUE, 10);
   gtk_container_add(GTK_CONTAINER(hbox), vbox);
 
+  bbox = gtk_hbox_new(TRUE, 10);
+  gtk_container_add(GTK_CONTAINER(vbox), bbox);
+
   button_newgame = gtk_button_new_with_label ("New game");
   g_signal_connect(button_newgame, "clicked", G_CALLBACK(button_newgame_clicked), NULL);
-  gtk_container_add(GTK_CONTAINER(vbox), button_newgame);
+  gtk_container_add(GTK_CONTAINER(bbox), button_newgame);
+
+  button_pause = gtk_button_new_with_label ("Pause");
+  g_signal_connect(button_pause, "clicked", G_CALLBACK(button_pause_clicked), NULL);
+  gtk_container_add(GTK_CONTAINER(bbox), button_pause);
 
   score_label = gtk_label_new("");
   gtk_container_add(GTK_CONTAINER (vbox), score_label);
@@ -331,9 +380,11 @@ int main(int argc, char *argv[]) {
   gtk_widget_show(drawing_area);
   gtk_widget_show(next_piece);
   gtk_widget_show(button_newgame);
+  gtk_widget_show(button_pause);
   gtk_widget_show(score_label);
   gtk_widget_show(hbox);
   gtk_widget_show(vbox);
+  gtk_widget_show(bbox);
   gtk_widget_show(window);
   g_timeout_add(500, timeout, NULL);
   gtk_main();
