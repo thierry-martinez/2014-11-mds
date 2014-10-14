@@ -44,13 +44,13 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 void fill_rectangle(cairo_t *cr, int c, int i, int j) {
   const int p = 2;
   cairo_rectangle(cr, j * block_width + p, i * block_height + p, block_width - p, block_height - p);
-  float r = shapes[c].colors[0];
-  float g = shapes[c].colors[1];
-  float b = shapes[c].colors[2];
-  cairo_set_source_rgb(cr, r, g, b);
-  cairo_fill_preserve(cr);      
+  float red   = shapes[c].colors[0];
+  float green = shapes[c].colors[1];
+  float blue  = shapes[c].colors[2];
+  cairo_set_source_rgb(cr, red, green, blue);
+  cairo_fill_preserve(cr);
   cairo_set_line_width(cr, p);
-  cairo_set_source_rgb(cr, r * 0.5, g * 0.5, b * 0.5);
+  cairo_set_source_rgb(cr, red * 0.5, green * 0.5, blue * 0.5);
   cairo_stroke(cr);
 }
 
