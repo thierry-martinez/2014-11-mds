@@ -229,7 +229,7 @@ void detect_lines() {
   unsigned int i;
   unsigned int count = 0;
   for (i = 0; i < height; i++) {
-    if (complete_line(i)) {
+    if (complete_row(i)) {
       remove_line(i);
       count++;
     }
