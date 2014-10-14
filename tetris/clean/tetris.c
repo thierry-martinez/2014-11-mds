@@ -92,7 +92,7 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
-int get_shape_x(unsigned int square_index) {
+int column_index_of_square(unsigned int square_index) {
   int oy = tetrominos[current_shape.index].coords[square_index][0];
   int ox = tetrominos[current_shape.index].coords[square_index][1];
   int cy = tetrominos[current_shape.index].center[0];
@@ -113,7 +113,7 @@ int get_shape_x(unsigned int square_index) {
   x += current_shape.x;
 }
 
-int get_shape_y(unsigned int square_index) {
+int row_index_of_square(unsigned int square_index) {
   int oy = tetrominos[current_shape.index].coords[square_index][0];
   int ox = tetrominos[current_shape.index].coords[square_index][1];
   int cy = tetrominos[current_shape.index].center[0];
@@ -137,18 +137,18 @@ int get_shape_y(unsigned int square_index) {
 void fill_current_shape(unsigned int color) {
   unsigned int square_index;
   for (square_index = 0; square_index < number_of_squares; square_index++) {
-    int y = get_shape_y(square_index);
-    int x = get_shape_x(square_index);
-    grid[y][x] = color;
+    int row_index = row_index_of_square(square_index);
+    int column_index = column_index_of_square(square_index);
+    grid[row_index][column_index] = color;
   }
 }
 
 bool valid_position() {
   unsigned int square_index;
   for (square_index = 0; square_index < number_of_squares; square_index++) {
-    int y = get_shape_y(square_index);
-    int x = get_shape_x(square_index);
-    if (!(x >= 0 && y >= 0 && x < number_of_columns && y < number_of_rows && grid[y][x] == 0)) {
+    int row_index = row_index_of_square(square_index);
+    int column_index = column_index_of_square(square_index);
+    if (!(column_index >= 0 && row_index >= 0 && column_index < number_of_columns && row_index < number_of_rows && grid[row_index][column_index] == 0)) {
       return false;
     }
   }
