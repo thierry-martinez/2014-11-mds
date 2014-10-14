@@ -193,10 +193,10 @@ int new_shape() {
   return v;
 }
 
-bool complete_line(i) {
-  unsigned int j;
-  for (j = 0; j < width; j++) {
-    if (grid[i][j] == 0) {
+bool complete_row(unsigned int row_index) {
+  unsigned int column_index;
+  for (column_index = 0; column_index < width; column_index++) {
+    if (grid[row_index][column_index] == 0) {
       return false;
     }
   }
