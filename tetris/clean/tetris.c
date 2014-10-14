@@ -24,11 +24,11 @@ struct shape {
   unsigned int o;
 } current_shape;
 
-struct shapes {
+struct tetraminos {
   int coords[4][2];
   int center[2];
   float colors[3];
-} shapes[shape_count] = {
+} tetraminos[shape_count] = {
   { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 1, 0, 0 } },
   { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0, 1, 0 } },
   { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, { 0, 0, 1 } },
@@ -45,9 +45,9 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 void fill_rectangle(cairo_t *cr, int c, int i, int j) {
   const int p = 2;
   cairo_rectangle(cr, j * block_width + p, i * block_height + p, block_width - p, block_height - p);
-  float red   = shapes[c].colors[0];
-  float green = shapes[c].colors[1];
-  float blue  = shapes[c].colors[2];
+  float red   = tetraminos[c].colors[0];
+  float green = tetraminos[c].colors[1];
+  float blue  = tetraminos[c].colors[2];
   cairo_set_source_rgb(cr, red, green, blue);
   cairo_fill_preserve(cr);
   cairo_set_line_width(cr, p);
@@ -82,8 +82,8 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   cairo_paint(cr);
 
   for (k = 0; k < 4; k++) {
-    int j = 2 + shapes[next_shape].coords[k][1];
-    int i = shapes[next_shape].coords[k][0];
+    int j = 2 + tetraminos[next_shape].coords[k][1];
+    int i = tetraminos[next_shape].coords[k][0];
     fill_rectangle(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
@@ -91,10 +91,10 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
 }
 
 int get_shape_x(unsigned int i) {
-  int oy = shapes[current_shape.index].coords[i][0];
-  int ox = shapes[current_shape.index].coords[i][1];
-  int cy = shapes[current_shape.index].center[0];
-  int cx = shapes[current_shape.index].center[1];
+  int oy = tetraminos[current_shape.index].coords[i][0];
+  int ox = tetraminos[current_shape.index].coords[i][1];
+  int cy = tetraminos[current_shape.index].center[0];
+  int cx = tetraminos[current_shape.index].center[1];
   int x;
   if (current_shape.o == 0) {
     x = ox;
@@ -112,10 +112,10 @@ int get_shape_x(unsigned int i) {
 }
 
 int get_shape_y(unsigned int i) {
-  int oy = shapes[current_shape.index].coords[i][0];
-  int ox = shapes[current_shape.index].coords[i][1];
-  int cy = shapes[current_shape.index].center[0];
-  int cx = shapes[current_shape.index].center[1];
+  int oy = tetraminos[current_shape.index].coords[i][0];
+  int ox = tetraminos[current_shape.index].coords[i][1];
+  int cy = tetraminos[current_shape.index].center[0];
+  int cx = tetraminos[current_shape.index].center[1];
   int y;
   if (current_shape.o == 0) {
     y = oy;
