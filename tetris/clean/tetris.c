@@ -203,15 +203,15 @@ bool complete_row(unsigned int row_index) {
   return true;
 }
 
-void remove_line(i) {
-  unsigned int k, j;
-  for (k = i; k > 0; k--) {
-    for (j = 0; j < width; j++) {
-      grid[k][j] = grid[k - 1][j];
+void remove_row(unsigned int removed_row_index) {
+  unsigned int row_index, column_index;
+  for (row_index = removed_row_index; row_index > 0; row_index--) {
+    for (column_index = 0; column_index < width; column_index++) {
+      grid[row_index][column_index] = grid[row_index-1][column_index];
     }
   }
-  for (j = 0; j < width; j++) {
-    grid[0][j] = 0;
+  for (column_index = 0; column_index < width; column_index++) {
+    grid[0][column_index] = 0;
   }
 }
 
@@ -230,7 +230,7 @@ void detect_lines() {
   unsigned int count = 0;
   for (i = 0; i < height; i++) {
     if (complete_row(i)) {
-      remove_line(i);
+      remove_row(i);
       count++;
     }
   }
