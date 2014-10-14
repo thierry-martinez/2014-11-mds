@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -141,16 +142,16 @@ void fill_current_shape(unsigned int color) {
   }
 }
 
-int valid_position() {
+bool valid_position() {
   unsigned int i;
   for (i = 0; i < 4; i++) {
     int y = get_shape_y(i);
     int x = get_shape_x(i);
     if (!(x >= 0 && y >= 0 && x < width && y < height && grid[y][x] == 0)) {
-      return 0;
+      return false;
     }
   }
-  return 1;
+  return true;
 }
 
 int move_shape(int x, int y, int o) {
@@ -193,14 +194,14 @@ int new_shape() {
   return v;
 }
 
-int complete_line(i) {
+bool complete_line(i) {
   unsigned int j;
   for (j = 0; j < width; j++) {
     if (grid[i][j] == 0) {
-      return 0;
+      return false;
     }
   }
-  return 1;
+  return true;
 }
 
 void remove_line(i) {
