@@ -84,7 +84,6 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   for (k = 0; k < 4; k++) {
     int j = 2 + shapes[next_shape].coords[k][1];
     int i = shapes[next_shape].coords[k][0];
-    const int p = 2;
     fill_rectangle(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
@@ -273,13 +272,17 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
   return TRUE;
 }
 
-void new_game() {
+void set_grid_to_zero() {
   unsigned int i, j;
   for (i = 0; i < height; i++) {
     for (j = 0; j < width; j++) {
       grid[i][j] = 0;
     }
   }
+}
+
+void new_game() {
+  set_grid_to_zero();
   srand(time(NULL));
   peek_next_shape();
   new_shape();
