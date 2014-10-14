@@ -7,16 +7,13 @@
 
 #define number_of_columns 16
 #define number_of_rows 16
-
 #define number_of_squares 4
+#define number_of_tetrominos 5
 
 const unsigned int block_width = 16;
 const unsigned int block_height = 16;
 
 unsigned int grid[number_of_rows][number_of_columns];
-
-#define number_of_tetrominos 5
-
 unsigned int next_shape;
 
 struct shape {
@@ -26,10 +23,16 @@ struct shape {
   unsigned int o;
 } current_shape;
 
+typedef struct rgb_model {
+  float red;
+  float green;
+  float blue;
+} rgb_model;
+
 struct tetrominos {
   int coords[number_of_squares][2];
   int center[2];
-  float colors[3];
+  rgb_model color;
 } tetrominos[number_of_tetrominos] = {
   { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 1, 0, 0 } },
   { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0, 1, 0 } },
@@ -47,9 +50,9 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 void fill_rectangle(cairo_t *cr, int c, int i, int j) {
   const int p = 2;
   cairo_rectangle(cr, j * block_width + p, i * block_height + p, block_width - p, block_height - p);
-  float red   = tetrominos[c].colors[0];
-  float green = tetrominos[c].colors[1];
-  float blue  = tetrominos[c].colors[2];
+  float red   = tetrominos[c].color.red;
+  float green = tetrominos[c].color.green;
+  float blue  = tetrominos[c].color.blue;
   cairo_set_source_rgb(cr, red, green, blue);
   cairo_fill_preserve(cr);
   cairo_set_line_width(cr, p);
