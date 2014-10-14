@@ -10,6 +10,12 @@
 #define number_of_squares 4
 #define number_of_tetrominos 5
 
+#define RED    {1,0,0}
+#define GREEN  {0,1,0}
+#define BLUE   {0,0,1}
+#define YELLOW {1,1,0}
+#define PURPLE {1,0,1}
+
 const unsigned int block_width = 16;
 const unsigned int block_height = 16;
 
@@ -29,16 +35,17 @@ typedef struct rgb_model {
   float blue;
 } rgb_model;
 
+
 struct tetrominos {
   int coords[number_of_squares][2];
   int center[2];
   rgb_model color;
 } tetrominos[number_of_tetrominos] = {
-  { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 1, 0, 0 } },
-  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0, 1, 0 } },
-  { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, { 0, 0, 1 } },
-  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }, { 1, 1 }, { 1, 1, 0 } },
-  { { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }, { 2, 1 }, { 1, 0, 1 } } };
+  { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, RED },
+  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, GREEN },
+  { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, BLUE },
+  { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }, { 1, 1 }, YELLOW },
+  { { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }, { 2, 1 }, PURPLE } };
 
 GtkWidget *window;
 
