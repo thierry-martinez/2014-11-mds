@@ -15,7 +15,7 @@ const unsigned int block_height = 16;
 
 unsigned int grid[number_of_rows][number_of_columns];
 
-#define shape_count 5
+#define number_of_tetrominos 5
 
 unsigned int next_shape;
 
@@ -30,7 +30,7 @@ struct tetrominos {
   int coords[number_of_squares][2];
   int center[2];
   float colors[3];
-} tetrominos[shape_count] = {
+} tetrominos[number_of_tetrominos] = {
   { { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }, { 3, 0 }, { 1, 0, 0 } },
   { { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }, { 1, 1 }, { 0, 1, 0 } },
   { { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }, { 1, 1 }, { 0, 0, 1 } },
@@ -177,7 +177,7 @@ int move_shape(int x, int y, int o) {
 }
 
 void peek_next_shape() {
-  next_shape = rand() % shape_count;
+  next_shape = rand() % number_of_tetrominos;
 }
 
 int new_shape() {
