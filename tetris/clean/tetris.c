@@ -56,17 +56,17 @@ void fill_rectangle(cairo_t *cr, int c, int i, int j) {
 }
 
 gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
-  int i, j;
+  int row_index, column_index;
   
   cairo_t* cr = gdk_cairo_create (widget->window);
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  for (i = 0; i < number_of_rows; i++) {
-    for (j = 0; j < number_of_columns; j++) {
-      int c = grid[i][j];
+  for (row_index = 0; row_index < number_of_rows; row_index++) {
+    for (column_index = 0; column_index < number_of_columns; column_index++) {
+      int c = grid[row_index][column_index];
       if (c != 0) {
-        fill_rectangle(cr, c - 1, i, j);
+        fill_rectangle(cr, c - 1, row_index, column_index);
       }
     }
   }
@@ -226,11 +226,11 @@ void update_score() {
 }
 
 void detect_lines() {
-  unsigned int i;
+  unsigned int row_index;
   unsigned int count = 0;
-  for (i = 0; i < number_of_rows; i++) {
-    if (complete_row(i)) {
-      remove_row(i);
+  for (row_index = 0; row_index < number_of_rows; row_index++) {
+    if (complete_row(row_index)) {
+      remove_row(row_index);
       count++;
     }
   }
@@ -273,10 +273,10 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
 }
 
 void set_grid_to_zero() {
-  unsigned int i, j;
-  for (i = 0; i < number_of_rows; i++) {
-    for (j = 0; j < number_of_columns; j++) {
-      grid[i][j] = 0;
+  unsigned int row_index, column_index;
+  for (row_index = 0; row_index < number_of_rows; row_index++) {
+    for (column_index = 0; column_index < number_of_columns; column_index++) {
+      grid[row_index][column_index] = 0;
     }
   }
 }
