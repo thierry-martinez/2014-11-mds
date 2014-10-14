@@ -21,8 +21,8 @@ unsigned int next_shape;
 
 struct shape {
   unsigned int index;
-  unsigned int x;
-  unsigned int y;
+  unsigned int column_index;
+  unsigned int row_index;
   unsigned int o;
 } current_shape;
 
@@ -84,8 +84,8 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   cairo_paint(cr);
 
   for (square_index = 0; square_index < number_of_squares; square_index++) {
-    int j = 2 + tetrominos[next_shape].coords[square_index][1];
     int i = tetrominos[next_shape].coords[square_index][0];
+    int j = 2 + tetrominos[next_shape].coords[square_index][1];
     fill_rectangle(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
@@ -110,7 +110,7 @@ int column_index_of_square(unsigned int square_index) {
   if (current_shape.o == 3) {
     x = cy - oy;
   }
-  x += current_shape.x;
+  x += current_shape.column_index;
 }
 
 int row_index_of_square(unsigned int square_index) {
@@ -131,7 +131,7 @@ int row_index_of_square(unsigned int square_index) {
   if (current_shape.o == 3) {
     y = ox;
   }
-  y += current_shape.y;
+  y += current_shape.row_index;
 }
 
 void fill_current_shape(unsigned int color) {
@@ -158,8 +158,8 @@ bool valid_position() {
 int move_shape(int x, int y, int o) {
   struct shape old_shape = current_shape;
   fill_current_shape(0);
-  current_shape.x += x;
-  current_shape.y += y;
+  current_shape.column_index += x;
+  current_shape.row_index += y;
   current_shape.o += o;
   if (current_shape.o > 3) {
     current_shape.o -= 4;
@@ -184,8 +184,8 @@ int new_shape() {
   int v;
   current_shape.index = next_shape;
   peek_next_shape();
-  current_shape.x = number_of_columns / 2;
-  current_shape.y = 0;
+  current_shape.column_index = number_of_columns / 2;
+  current_shape.row_index = 0;
   current_shape.o = 0;
   v = valid_position();
   if (v) {
