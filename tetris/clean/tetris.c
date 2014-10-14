@@ -8,6 +8,8 @@
 #define number_of_columns 16
 #define number_of_rows 16
 
+#define number_of_squares 4
+
 const unsigned int block_width = 16;
 const unsigned int block_height = 16;
 
@@ -25,7 +27,7 @@ struct shape {
 } current_shape;
 
 struct tetrominos {
-  int coords[4][2];
+  int coords[number_of_squares][2];
   int center[2];
   float colors[3];
 } tetrominos[shape_count] = {
@@ -75,24 +77,24 @@ gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
 }
 
 gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
-  int k;
+  int square_index;
   
   cairo_t* cr = gdk_cairo_create (widget->window);
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  for (k = 0; k < 4; k++) {
-    int j = 2 + tetrominos[next_shape].coords[k][1];
-    int i = tetrominos[next_shape].coords[k][0];
+  for (square_index = 0; square_index < number_of_squares; square_index++) {
+    int j = 2 + tetrominos[next_shape].coords[square_index][1];
+    int i = tetrominos[next_shape].coords[square_index][0];
     fill_rectangle(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
   return TRUE;
 }
 
-int get_shape_x(unsigned int i) {
-  int oy = tetrominos[current_shape.index].coords[i][0];
-  int ox = tetrominos[current_shape.index].coords[i][1];
+int get_shape_x(unsigned int square_index) {
+  int oy = tetrominos[current_shape.index].coords[square_index][0];
+  int ox = tetrominos[current_shape.index].coords[square_index][1];
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
   int x;
@@ -111,9 +113,9 @@ int get_shape_x(unsigned int i) {
   x += current_shape.x;
 }
 
-int get_shape_y(unsigned int i) {
-  int oy = tetrominos[current_shape.index].coords[i][0];
-  int ox = tetrominos[current_shape.index].coords[i][1];
+int get_shape_y(unsigned int square_index) {
+  int oy = tetrominos[current_shape.index].coords[square_index][0];
+  int ox = tetrominos[current_shape.index].coords[square_index][1];
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
   int y;
@@ -133,19 +135,19 @@ int get_shape_y(unsigned int i) {
 }
 
 void fill_current_shape(unsigned int color) {
-  unsigned int i;
-  for (i = 0; i < 4; i++) {
-    int y = get_shape_y(i);
-    int x = get_shape_x(i);
+  unsigned int square_index;
+  for (square_index = 0; square_index < number_of_squares; square_index++) {
+    int y = get_shape_y(square_index);
+    int x = get_shape_x(square_index);
     grid[y][x] = color;
   }
 }
 
 bool valid_position() {
-  unsigned int i;
-  for (i = 0; i < 4; i++) {
-    int y = get_shape_y(i);
-    int x = get_shape_x(i);
+  unsigned int square_index;
+  for (square_index = 0; square_index < number_of_squares; square_index++) {
+    int y = get_shape_y(square_index);
+    int x = get_shape_x(square_index);
     if (!(x >= 0 && y >= 0 && x < number_of_columns && y < number_of_rows && grid[y][x] == 0)) {
       return false;
     }
