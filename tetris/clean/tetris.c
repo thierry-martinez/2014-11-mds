@@ -6,10 +6,10 @@
 #include <gdk/gdkkeysyms.h>
 
 #define DIMENSION 2
-#define number_of_columns 16
-#define number_of_rows 16
-#define number_of_squares 4
-#define number_of_tetrominos 5
+#define NUMBER_OF_COLUMNS 16
+#define NUMBER_OF_ROWS 16
+#define NUMBER_OF_SQUARES 4
+#define NUMBER_OF_TETROMINOS 5
 
 #define RED    {1,0,0}
 #define GREEN  {0,1,0}
@@ -29,7 +29,7 @@ const unsigned int block_width = 16;
 const unsigned int block_height = 16;
 
 
-unsigned int grid[number_of_rows][number_of_columns];
+unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
 unsigned int next_shape;
 
 struct shape {
@@ -47,10 +47,10 @@ typedef struct rgb_model {
 
 
 struct tetromino {
-  int coords[number_of_squares][DIMENSION];
+  int coords[NUMBER_OF_SQUARES][DIMENSION];
   int center[DIMENSION];
   rgb_model color;
-} tetrominos[number_of_tetrominos] = {
+} tetrominos[NUMBER_OF_TETROMINOS] = {
   { POLYOMINO_I , { 3, 0 }, RED },
   { POLYOMINO_J , { 1, 1 }, GREEN },
   { POLYOMINO_L , { 1, 1 }, BLUE },
@@ -84,8 +84,8 @@ gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  for (row_index = 0; row_index < number_of_rows; row_index++) {
-    for (column_index = 0; column_index < number_of_columns; column_index++) {
+  for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
+    for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
       int c = grid[row_index][column_index];
       if (c != 0) {
         fill_rectangle(cr, c - 1, row_index, column_index);
@@ -103,7 +103,7 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
-  for (square_index = 0; square_index < number_of_squares; square_index++) {
+  for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     int i = tetrominos[next_shape].coords[square_index][0];
     int j = 2 + tetrominos[next_shape].coords[square_index][1];
     fill_rectangle(cr, next_shape, i, j);
@@ -156,7 +156,7 @@ int row_index_of_square(unsigned int square_index) {
 
 void fill_current_shape(unsigned int color) {
   unsigned int square_index;
-  for (square_index = 0; square_index < number_of_squares; square_index++) {
+  for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     int row_index = row_index_of_square(square_index);
     int column_index = column_index_of_square(square_index);
     grid[row_index][column_index] = color;
@@ -165,10 +165,10 @@ void fill_current_shape(unsigned int color) {
 
 bool valid_position() {
   unsigned int square_index;
-  for (square_index = 0; square_index < number_of_squares; square_index++) {
+  for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     int row_index = row_index_of_square(square_index);
     int column_index = column_index_of_square(square_index);
-    if (!(column_index >= 0 && row_index >= 0 && column_index < number_of_columns && row_index < number_of_rows && grid[row_index][column_index] == 0)) {
+    if (!(column_index >= 0 && row_index >= 0 && column_index < NUMBER_OF_COLUMNS && row_index < NUMBER_OF_ROWS && grid[row_index][column_index] == 0)) {
       return false;
     }
   }
@@ -197,14 +197,14 @@ int move_shape(int x, int y, int o) {
 }
 
 void peek_next_shape() {
-  next_shape = rand() % number_of_tetrominos;
+  next_shape = rand() % NUMBER_OF_TETROMINOS;
 }
 
 int new_shape() {
   int v;
   current_shape.index = next_shape;
   peek_next_shape();
-  current_shape.column_index = number_of_columns / 2;
+  current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;
   current_shape.o = 0;
   v = valid_position();
@@ -217,7 +217,7 @@ int new_shape() {
 
 bool complete_row(unsigned int row_index) {
   unsigned int column_index;
-  for (column_index = 0; column_index < number_of_columns; column_index++) {
+  for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
     if (grid[row_index][column_index] == 0) {
       return false;
     }
@@ -228,11 +228,11 @@ bool complete_row(unsigned int row_index) {
 void remove_row(unsigned int removed_row_index) {
   unsigned int row_index, column_index;
   for (row_index = removed_row_index; row_index > 0; row_index--) {
-    for (column_index = 0; column_index < number_of_columns; column_index++) {
+    for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
       grid[row_index][column_index] = grid[row_index-1][column_index];
     }
   }
-  for (column_index = 0; column_index < number_of_columns; column_index++) {
+  for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
     grid[0][column_index] = 0;
   }
 }
@@ -250,7 +250,7 @@ void update_score() {
 void detect_lines() {
   unsigned int row_index;
   unsigned int count = 0;
-  for (row_index = 0; row_index < number_of_rows; row_index++) {
+  for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
     if (complete_row(row_index)) {
       remove_row(row_index);
       count++;
@@ -296,8 +296,8 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
 
 void set_grid_to_zero() {
   unsigned int row_index, column_index;
-  for (row_index = 0; row_index < number_of_rows; row_index++) {
-    for (column_index = 0; column_index < number_of_columns; column_index++) {
+  for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
+    for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
       grid[row_index][column_index] = 0;
     }
   }
@@ -327,7 +327,7 @@ int main(int argc, char *argv[]) {
   gtk_container_add(GTK_CONTAINER(window), hbox);
   drawing_area = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(hbox), drawing_area);
-  gtk_widget_set_size_request(drawing_area, number_of_columns * block_width, number_of_rows * block_height);
+  gtk_widget_set_size_request(drawing_area, NUMBER_OF_COLUMNS * block_width, NUMBER_OF_ROWS * block_height);
   g_signal_connect(G_OBJECT(drawing_area), "realize", G_CALLBACK(realize), NULL);
   g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(drawing_area_expose_event), NULL);
   vbox = gtk_vbox_new(TRUE, 10);
