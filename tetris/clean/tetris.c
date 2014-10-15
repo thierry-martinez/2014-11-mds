@@ -64,12 +64,12 @@ gboolean realize(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
-void fill_rectangle(cairo_t *cr, int c, int i, int j) {
+void fill_rectangle(cairo_t *cr, int tetromino_index, int i, int j) {
   const int p = 2;
   cairo_rectangle(cr, j * block_width + p, i * block_height + p, block_width - p, block_height - p);
-  float red   = tetrominos[c].color.red;
-  float green = tetrominos[c].color.green;
-  float blue  = tetrominos[c].color.blue;
+  float red   = tetrominos[tetromino_index].color.red;
+  float green = tetrominos[tetromino_index].color.green;
+  float blue  = tetrominos[tetromino_index].color.blue;
   cairo_set_source_rgb(cr, red, green, blue);
   cairo_fill_preserve(cr);
   cairo_set_line_width(cr, p);
@@ -225,6 +225,14 @@ bool complete_row(unsigned int row_index) {
   return true;
 }
 
+
+void set_row_to_zero(unsigned int row_index) {
+  unsigned int column_index;
+  for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
+    grid[row_index][column_index] = 0;
+  }
+}
+
 void remove_row(unsigned int removed_row_index) {
   unsigned int row_index, column_index;
   for (row_index = removed_row_index; row_index > 0; row_index--) {
@@ -232,9 +240,7 @@ void remove_row(unsigned int removed_row_index) {
       grid[row_index][column_index] = grid[row_index-1][column_index];
     }
   }
-  for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-    grid[0][column_index] = 0;
-  }
+  set_row_to_zero(0);
 }
 
 GtkWidget *score_label;
