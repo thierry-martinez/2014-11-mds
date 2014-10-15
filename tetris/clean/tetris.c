@@ -9,7 +9,7 @@
 #define NUMBER_OF_COLUMNS 16
 #define NUMBER_OF_ROWS 16
 #define NUMBER_OF_SQUARES 4
-#define NUMBER_OF_TETROMINOS 5
+#define NUMBER_OF_TETROMINO_TYPES 5
 
 #define RED    {1,0,0}
 #define GREEN  {0,1,0}
@@ -52,7 +52,7 @@ struct tetromino {
   int coords[NUMBER_OF_SQUARES][DIMENSION];
   int center[DIMENSION];
   rgb_model color;
-} tetrominos[NUMBER_OF_TETROMINOS] = {
+} tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
   { POLYOMINO_I , { 3, 0 }, RED },
   { POLYOMINO_J , { 1, 1 }, GREEN },
   { POLYOMINO_L , { 1, 1 }, BLUE },
@@ -66,12 +66,12 @@ gboolean realize(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
-void fill_rectangle(cairo_t *cr, int tetromino_index, int i, int j) {
+void fill_rectangle(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
   cairo_rectangle(cr, j * block_width + line_width, i * block_height + line_width, block_width - line_width, block_height - line_width);
-  float red   = tetrominos[tetromino_index].color.red;
-  float green = tetrominos[tetromino_index].color.green;
-  float blue  = tetrominos[tetromino_index].color.blue;
+  float red   = tetrominos[tetromino_type].color.red;
+  float green = tetrominos[tetromino_type].color.green;
+  float blue  = tetrominos[tetromino_type].color.blue;
   cairo_set_source_rgb(cr, red, green, blue);
   cairo_fill_preserve(cr);
   cairo_set_line_width(cr, line_width);
@@ -88,9 +88,9 @@ gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
 
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-      int c = grid[row_index][column_index];
-      if (c != 0) {
-        fill_rectangle(cr, c - 1, row_index, column_index);
+      int tetromino_type = grid[row_index][column_index];
+      if (tetromino_type != 0) {
+        fill_rectangle(cr, tetromino_type - 1, row_index, column_index);
       }
     }
   }
@@ -199,7 +199,7 @@ int move_shape(int x, int y, int o) {
 }
 
 void draw_tetramino() {
-  next_shape = rand() % NUMBER_OF_TETROMINOS;
+  next_shape = rand() % NUMBER_OF_TETROMINO_TYPES;
 }
 
 int new_shape() {
