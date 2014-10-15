@@ -17,6 +17,7 @@
 #define YELLOW {1,1,0}
 #define PURPLE {1,0,1}
 
+
 /* Official names of tetrominos
  * Do NOT modify these names */
 #define POLYOMINO_I { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }
@@ -45,6 +46,7 @@ typedef struct rgb_model {
   float blue;
 } rgb_model;
 
+rgb_model const WHITE = {1,1,1};
 
 struct tetromino {
   int coords[NUMBER_OF_SQUARES][DIMENSION];
@@ -65,14 +67,14 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 }
 
 void fill_rectangle(cairo_t *cr, int tetromino_index, int i, int j) {
-  const int p = 2;
-  cairo_rectangle(cr, j * block_width + p, i * block_height + p, block_width - p, block_height - p);
+  const int line_width = 2;
+  cairo_rectangle(cr, j * block_width + line_width, i * block_height + line_width, block_width - line_width, block_height - line_width);
   float red   = tetrominos[tetromino_index].color.red;
   float green = tetrominos[tetromino_index].color.green;
   float blue  = tetrominos[tetromino_index].color.blue;
   cairo_set_source_rgb(cr, red, green, blue);
   cairo_fill_preserve(cr);
-  cairo_set_line_width(cr, p);
+  cairo_set_line_width(cr, line_width);
   cairo_set_source_rgb(cr, red * 0.5, green * 0.5, blue * 0.5);
   cairo_stroke(cr);
 }
@@ -81,7 +83,7 @@ gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
   int row_index, column_index;
   
   cairo_t* cr = gdk_cairo_create (widget->window);
-  cairo_set_source_rgb(cr, 1, 1, 1);
+  cairo_set_source_rgb(cr, WHITE.red, WHITE.green, WHITE.blue);
   cairo_paint(cr);
 
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
