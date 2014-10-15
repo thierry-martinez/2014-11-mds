@@ -5,6 +5,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+#define DIMENSION 2
 #define number_of_columns 16
 #define number_of_rows 16
 #define number_of_squares 4
@@ -27,6 +28,7 @@
 const unsigned int block_width = 16;
 const unsigned int block_height = 16;
 
+
 unsigned int grid[number_of_rows][number_of_columns];
 unsigned int next_shape;
 
@@ -45,8 +47,8 @@ typedef struct rgb_model {
 
 
 struct tetromino {
-  int coords[number_of_squares][2];
-  int center[2];
+  int coords[number_of_squares][DIMENSION];
+  int center[DIMENSION];
   rgb_model color;
 } tetrominos[number_of_tetrominos] = {
   { POLYOMINO_I , { 3, 0 }, RED },
@@ -58,7 +60,7 @@ struct tetromino {
 GtkWidget *window;
 
 gboolean realize(GtkWidget *widget, gpointer data) {
-  gtk_widget_queue_draw(widget); 
+  gtk_widget_queue_draw(widget);
   return TRUE;
 }
 
