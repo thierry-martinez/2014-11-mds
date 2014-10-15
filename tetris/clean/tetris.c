@@ -44,7 +44,7 @@ typedef struct rgb_model {
 } rgb_model;
 
 
-struct tetrominos {
+struct tetromino {
   int coords[number_of_squares][2];
   int center[2];
   rgb_model color;
