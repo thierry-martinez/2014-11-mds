@@ -196,14 +196,14 @@ int move_shape(int x, int y, int o) {
   return v;
 }
 
-void peek_next_shape() {
+void draw_tetramino() {
   next_shape = rand() % NUMBER_OF_TETROMINOS;
 }
 
 int new_shape() {
   int v;
   current_shape.index = next_shape;
-  peek_next_shape();
+  draw_tetramino();
   current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;
   current_shape.o = 0;
@@ -312,7 +312,7 @@ void set_grid_to_zero() {
 void new_game() {
   set_grid_to_zero();
   srand(time(NULL));
-  peek_next_shape();
+  draw_tetramino();
   new_shape();
   fill_current_shape(current_shape.index + 1);
   update_score();
