@@ -5,18 +5,14 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+#include "rgb_color.h"
+
 #define DIMENSION 2
-#define NUMBER_OF_COLUMNS 16
 #define NUMBER_OF_ROWS 16
+#define NUMBER_OF_COLUMNS 16
 #define NUMBER_OF_SQUARES 4
 #define NUMBER_OF_TETROMINO_TYPES 5
-
-#define RED    {1,0,0}
-#define GREEN  {0,1,0}
-#define BLUE   {0,0,1}
-#define YELLOW {1,1,0}
-#define PURPLE {1,0,1}
-
+unsigned int const SQUARE_SIDE_LENGTH = 16;
 
 /* Official names of tetrominos
  * Do NOT modify these names */
@@ -25,10 +21,6 @@
 #define POLYOMINO_L { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }
 #define POLYOMINO_O { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }
 #define POLYOMINO_T { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }
-
-const unsigned int block_width = 16;
-const unsigned int block_height = 16;
-
 
 unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
 unsigned int next_shape;
@@ -40,18 +32,11 @@ struct shape {
   unsigned int o;
 } current_shape;
 
-typedef struct rgb_model {
-  float red;
-  float green;
-  float blue;
-} rgb_model;
-
-rgb_model const WHITE = {1,1,1};
 
 struct tetromino {
   int coords[NUMBER_OF_SQUARES][DIMENSION];
   int center[DIMENSION];
-  rgb_model color;
+  rgb_color color;
 } tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
   { POLYOMINO_I , { 3, 0 }, RED },
   { POLYOMINO_J , { 1, 1 }, GREEN },
@@ -68,7 +53,7 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 
 void fill_rectangle(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
-  cairo_rectangle(cr, j * block_width + line_width, i * block_height + line_width, block_width - line_width, block_height - line_width);
+  cairo_rectangle(cr, j * SQUARE_SIDE_LENGTH + line_width, i * SQUARE_SIDE_LENGTH + line_width, SQUARE_SIDE_LENGTH - line_width, SQUARE_SIDE_LENGTH - line_width);
   float red   = tetrominos[tetromino_type].color.red;
   float green = tetrominos[tetromino_type].color.green;
   float blue  = tetrominos[tetromino_type].color.blue;
@@ -335,7 +320,7 @@ int main(int argc, char *argv[]) {
   gtk_container_add(GTK_CONTAINER(window), hbox);
   drawing_area = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(hbox), drawing_area);
-  gtk_widget_set_size_request(drawing_area, NUMBER_OF_COLUMNS * block_width, NUMBER_OF_ROWS * block_height);
+  gtk_widget_set_size_request(drawing_area, NUMBER_OF_COLUMNS * SQUARE_SIDE_LENGTH, NUMBER_OF_ROWS * SQUARE_SIDE_LENGTH);
   g_signal_connect(G_OBJECT(drawing_area), "realize", G_CALLBACK(realize), NULL);
   g_signal_connect(G_OBJECT(drawing_area), "expose_event", G_CALLBACK(drawing_area_expose_event), NULL);
   vbox = gtk_vbox_new(TRUE, 10);
@@ -347,7 +332,7 @@ int main(int argc, char *argv[]) {
   gtk_container_add(GTK_CONTAINER (vbox), score_label);
   next_piece = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(vbox), next_piece);
-  gtk_widget_set_size_request(next_piece, 4 * block_width, 4 * block_height);
+  gtk_widget_set_size_request(next_piece, 4 * SQUARE_SIDE_LENGTH, 4 * SQUARE_SIDE_LENGTH);
   g_signal_connect(G_OBJECT(next_piece), "realize", G_CALLBACK(realize), NULL);
   g_signal_connect(G_OBJECT(next_piece), "expose_event", G_CALLBACK(next_piece_expose_event), NULL);
   g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(key_press_event), NULL);
