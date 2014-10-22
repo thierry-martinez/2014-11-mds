@@ -6,15 +6,8 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "tetrominos.h"
-
-#define NUMBER_OF_ROWS 16
-#define NUMBER_OF_COLUMNS 16
-unsigned int const SQUARE_SIDE_LENGTH = 16;
-
-unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
-unsigned int next_shape;
-
-GtkWidget *window;
+#include "grid.h"
+#include "window.h"
 
 gboolean realize(GtkWidget *widget, gpointer data) {
   gtk_widget_queue_draw(widget);
