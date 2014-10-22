@@ -22,6 +22,9 @@ unsigned int const SQUARE_SIDE_LENGTH = 16;
 #define POLYOMINO_O { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }
 #define POLYOMINO_T { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }
 
+enum RotationAngle { ANGLE_0=0, ANGLE_90=1, ANGLE_180=2, ANGLE_270=3 };
+
+
 unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
 unsigned int next_shape;
 
@@ -29,7 +32,7 @@ struct shape {
   unsigned int index;
   unsigned int column_index;
   unsigned int row_index;
-  unsigned int o;
+  unsigned int rotation_angle;
 } current_shape;
 
 
@@ -105,16 +108,16 @@ int column_index_of_square(unsigned int square_index) {
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
   int x;
-  if (current_shape.o == 0) {
+  if (current_shape.rotation_angle == 0) {
     x = ox;
   }
-  if (current_shape.o == 1) {
+  if (current_shape.rotation_angle == 1) {
     x = oy;
   }
-  if (current_shape.o == 2) {
+  if (current_shape.rotation_angle == 2) {
     x = cx - ox;
   }
-  if (current_shape.o == 3) {
+  if (current_shape.rotation_angle == 3) {
     x = cy - oy;
   }
   x += current_shape.column_index;
@@ -126,16 +129,16 @@ int row_index_of_square(unsigned int square_index) {
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
   int y;
-  if (current_shape.o == 0) {
+  if (current_shape.rotation_angle == 0) {
     y = oy;
   }
-  if (current_shape.o == 1) {
+  if (current_shape.rotation_angle == 1) {
     y = cx - ox;
   }
-  if (current_shape.o == 2) {
+  if (current_shape.rotation_angle == 2) {
     y = cy - oy;
   }
-  if (current_shape.o == 3) {
+  if (current_shape.rotation_angle == 3) {
     y = ox;
   }
   y += current_shape.row_index;
@@ -167,12 +170,12 @@ int move_shape(int x, int y, int o) {
   fill_current_shape(0);
   current_shape.column_index += x;
   current_shape.row_index += y;
-  current_shape.o += o;
-  if (current_shape.o > 3) {
-    current_shape.o -= 4;
+  current_shape.rotation_angle += o;
+  if (current_shape.rotation_angle > 3) {
+    current_shape.rotation_angle -= 4;
   }
-  if (current_shape.o < 0) {
-    current_shape.o += 4;
+  if (current_shape.rotation_angle < 0) {
+    current_shape.rotation_angle += 4;
   }
   int v = valid_position();
   if (!v) {
@@ -193,7 +196,7 @@ int new_shape() {
   draw_tetramino();
   current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;
-  current_shape.o = 0;
+  current_shape.rotation_angle = 0;
   v = valid_position();
   if (v) {
     fill_current_shape(current_shape.index + 1);
