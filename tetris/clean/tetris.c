@@ -311,9 +311,9 @@ gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
   GtkWidget *button_newgame, *hbox, *vbox, *drawing_area, *next_piece;
-  gtk_init(&argc, &argv);
+  gtk_init(0, NULL);
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
   hbox = gtk_hbox_new(TRUE, 10);
