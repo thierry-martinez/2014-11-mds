@@ -24,8 +24,9 @@ struct shape {
   unsigned int rotation_angle;
 } current_shape;
 
+unsigned int next_shape;
 
-struct tetromino {
+static struct tetromino {
   int coords[NUMBER_OF_SQUARES][DIMENSION];
   int center[DIMENSION];
   rgb_color color;

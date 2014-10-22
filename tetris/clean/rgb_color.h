@@ -13,6 +13,6 @@ typedef struct rgb_color {
   float blue;
 } rgb_color;
 
-rgb_color const WHITE = {1,1,1};
+static rgb_color const WHITE = {1,1,1};
 
 #endif
