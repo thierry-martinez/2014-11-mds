@@ -1,1 +1,0 @@
-/home/cdoucet/local/formations/mds/tetris/clean/CMakeFiles/tetris.dir
