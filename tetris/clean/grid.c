@@ -22,6 +22,7 @@ int column_index_of_square(unsigned int square_index) {
     x = cy - oy;
   }
   x += current_shape.column_index;
+  return x;
 }
 
 int row_index_of_square(unsigned int square_index) {
@@ -43,6 +44,7 @@ int row_index_of_square(unsigned int square_index) {
     y = ox;
   }
   y += current_shape.row_index;
+  return y;
 }
 
 void fill_current_shape(unsigned int color) {
