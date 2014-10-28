@@ -31,7 +31,7 @@ int main(void) {
   gtk_container_add(GTK_CONTAINER(hbox), vbox);
 
   /* New game button */
-  button_newgame = gtk_button_new_with_label ("New game");
+  button_newgame = gtk_button_new_with_label("New game");
   g_signal_connect(button_newgame, "clicked", G_CALLBACK(button_newgame_clicked), NULL);
   gtk_container_add(GTK_CONTAINER(vbox), button_newgame);
 
