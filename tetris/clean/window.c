@@ -58,7 +58,7 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
 void update_score() {
   char score_text[255];
   sprintf(score_text, "Score: %u", score);
-  gtk_label_set_text(GTK_LABEL(score_label), score_text);
+  gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
 }
 
 gint timeout(gpointer data) {
@@ -100,7 +100,7 @@ void new_game() {
   new_shape();
   fill_current_shape(current_shape.index + 1);
   update_score();
-  gtk_widget_queue_draw(window);
+  gtk_widget_queue_draw(application.window);
   g_timeout_add(500, timeout, NULL);
 }
 
@@ -108,4 +108,6 @@ gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
   new_game();
   return TRUE;
 }
+
+unsigned int score = 0;
 

@@ -85,7 +85,7 @@ int move_shape(int x, int y, int o) {
     current_shape = old_shape;
   }
   fill_current_shape(current_shape.index + 1);
-  gtk_widget_queue_draw(window);
+  gtk_widget_queue_draw(application.window);
   return v;
 }
 
@@ -103,7 +103,7 @@ int new_shape() {
   v = valid_position();
   if (v) {
     fill_current_shape(current_shape.index + 1);
-    gtk_widget_queue_draw(window);
+    gtk_widget_queue_draw(application.window);
   }
   return v;
 }
