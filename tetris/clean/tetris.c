@@ -57,8 +57,6 @@ int main(void) {
   gtk_widget_show(vbox);
   gtk_widget_show(window);
   
-  g_timeout_add(500, timeout, NULL);
-  
   gtk_main();
   
   return EXIT_SUCCESS;

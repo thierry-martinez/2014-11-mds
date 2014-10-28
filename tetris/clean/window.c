@@ -101,6 +101,7 @@ void new_game() {
   fill_current_shape(current_shape.index + 1);
   update_score();
   gtk_widget_queue_draw(window);
+  g_timeout_add(500, timeout, NULL);
 }
 
 gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
