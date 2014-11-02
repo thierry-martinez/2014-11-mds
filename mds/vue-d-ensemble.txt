@@ -11,7 +11,7 @@ I- 26/08/2014
 - PROD chaîne de production avec cmake (Thierry et Cédric) 3h
 - VERS versionnement avec git (Thierry et David) 3h
 
-- TEST tests avec cppUnit (Cédric et Thierry) 3h
+- TEST tests avec cppUnit (Cédric et Cécile) 3h
 - INT intégration continue avec jenkins (David et Thierry) 2h
 
 - PROJ méthodes de gestion de projets avec Scrum (Cécile et Cédric) 2h
