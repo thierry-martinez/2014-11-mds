@@ -1,5 +1,18 @@
 #include "window.h"
 
+unsigned int score = 0;
+
+unsigned int get_score(void) {
+  return score;
+}
+
+void set_score(unsigned int new_score) {
+  char score_text[255];
+  score = new_score;
+  sprintf(score_text, "Score: %u", score);
+  gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
+}
+
 struct drawing_area_spec {
   GtkWidget *container;
   unsigned int width, height;
@@ -10,7 +23,7 @@ GtkWidget *new_drawing_area(struct drawing_area_spec spec) {
   GtkWidget *result = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(spec.container), result);
   gtk_widget_set_size_request(result, spec.width, spec.height);
-  g_signal_connect(G_OBJECT(result), "realize", G_CALLBACK(realize), NULL);
+  g_signal_connect(G_OBJECT(result), "realize", G_CALLBACK(on_realize_event), NULL);
   g_signal_connect(G_OBJECT(result), "expose_event", spec.expose_event, NULL);
   return result;
 }
@@ -26,7 +39,7 @@ void initialize_grid() {
   grid_spec.container = application.hbox;
   grid_spec.width = NUMBER_OF_COLUMNS * SQUARE_SIDE_LENGTH;
   grid_spec.height = NUMBER_OF_ROWS * SQUARE_SIDE_LENGTH;
-  grid_spec.expose_event = G_CALLBACK(grid_expose_event);
+  grid_spec.expose_event = G_CALLBACK(on_grid_expose_event);
   application.grid = new_drawing_area(grid_spec);
   gtk_widget_show(application.grid);
 }
@@ -40,7 +53,7 @@ void initialize_vertical_box() {
 void initialize_button_newgame() {
   application.button_newgame = gtk_button_new_with_label("New game");
   g_signal_connect(application.button_newgame, "clicked",
-                   G_CALLBACK(button_newgame_clicked), NULL);
+                   G_CALLBACK(on_button_newgame_click_event), NULL);
   gtk_container_add(GTK_CONTAINER(application.vbox), application.button_newgame);
   gtk_widget_show(application.button_newgame);
 }
@@ -56,7 +69,7 @@ void initialize_next_piece() {
   next_piece_spec.container = application.vbox;
   next_piece_spec.width = 4 * SQUARE_SIDE_LENGTH;
   next_piece_spec.height = 4 * SQUARE_SIDE_LENGTH;
-  next_piece_spec.expose_event = G_CALLBACK(next_piece_expose_event);
+  next_piece_spec.expose_event = G_CALLBACK(on_next_piece_expose_event);
   application.next_piece = new_drawing_area(next_piece_spec);
   gtk_widget_show(application.next_piece);  
 }
@@ -64,7 +77,7 @@ void initialize_next_piece() {
 void initialize_window() {
   application.window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   g_signal_connect(application.window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-  g_signal_connect(G_OBJECT(application.window), "key_press_event", G_CALLBACK(key_press_event), NULL);
+  g_signal_connect(G_OBJECT(application.window), "key_press_event", G_CALLBACK(on_key_press_event), NULL);
   gtk_widget_show(application.window);
 }
 
@@ -113,20 +126,10 @@ void draw_grid() {
   cairo_destroy(cr);
 }
 
-gboolean realize(GtkWidget *widget, gpointer data) {
-  gtk_widget_queue_draw(widget);
-  return TRUE;
-}
-
-gboolean grid_expose_event(GtkWidget *widget, gpointer data) {
-  draw_grid();
-  return TRUE;
-}
-
-gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
+void draw_next_piece(void) {
   int square_index;
   
-  cairo_t* cr = gdk_cairo_create (widget->window);
+  cairo_t* cr = gdk_cairo_create (application.next_piece->window);
   cairo_set_source_rgb(cr, 1, 1, 1);
   cairo_paint(cr);
 
@@ -136,27 +139,20 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
     fill_cell(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
-  return TRUE;
 }
 
-void update_score() {
-  char score_text[255];
-  sprintf(score_text, "Score: %u", score);
-  gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
-}
-
-gint timeout(gpointer data) {
+gint on_timeout_event(gpointer data) {
   if (!(move_shape(0, 1, 0))) {
     detect_lines();
     if (!new_shape()) {
       return 0;
     }
   }
-  g_timeout_add(500, timeout, NULL);
+  g_timeout_add(500, on_timeout_event, NULL);
   return 0;
 }
 
-gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
+gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
   switch (event->keyval) {
   case GDK_Left:
     move_shape(-1, 0, 0);
@@ -177,25 +173,36 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
   return TRUE;
 }
 
+gboolean on_realize_event(GtkWidget *widget, gpointer data) {
+  gtk_widget_queue_draw(widget);
+  return TRUE;
+}
+
+gboolean on_grid_expose_event(GtkWidget *widget, gpointer data) {
+  draw_grid();
+  return TRUE;
+}
+
+gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data) {
+  draw_next_piece();
+  return TRUE;
+}
+
+gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data) {
+  new_game();
+  return TRUE;
+}
+
 void redraw() {
   gtk_widget_queue_draw(application.window);
 }
 
 void new_game() {
   set_grid_to_zero();
-  srand(time(NULL));
   draw_tetramino();
   new_shape();
   fill_current_shape(current_shape.index + 1);
-  update_score();
+  set_score(0);
   gtk_widget_queue_draw(application.window);
-  g_timeout_add(500, timeout, NULL);
+  g_timeout_add(500, on_timeout_event, NULL);
 }
-
-gboolean button_newgame_clicked(GtkWidget *widget, gpointer data) {
-  new_game();
-  return TRUE;
-}
-
-unsigned int score = 0;
-
