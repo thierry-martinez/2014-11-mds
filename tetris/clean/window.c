@@ -52,7 +52,7 @@ void initialize_grid() {
   gtk_widget_show(application.window);
 }
 
-void fill_rectangle(cairo_t *cr, int tetromino_type, int i, int j) {
+void fill_cell(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
   cairo_rectangle(cr, j * SQUARE_SIDE_LENGTH + line_width, i * SQUARE_SIDE_LENGTH + line_width, SQUARE_SIDE_LENGTH - line_width, SQUARE_SIDE_LENGTH - line_width);
   float red   = tetrominos[tetromino_type].color.red;
@@ -76,7 +76,7 @@ void draw_grid() {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
       int tetromino_type = grid[row_index][column_index];
       if (tetromino_type != 0) {
-        fill_rectangle(cr, tetromino_type - 1, row_index, column_index);
+        fill_cell(cr, tetromino_type - 1, row_index, column_index);
       }
     }
   }
@@ -102,7 +102,7 @@ gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     int i = tetrominos[next_shape].coords[square_index][0];
     int j = 2 + tetrominos[next_shape].coords[square_index][1];
-    fill_rectangle(cr, next_shape, i, j);
+    fill_cell(cr, next_shape, i, j);
   }
   cairo_destroy(cr);
   return TRUE;
