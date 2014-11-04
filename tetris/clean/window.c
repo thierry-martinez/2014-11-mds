@@ -1,5 +1,7 @@
 #include "window.h"
 
+/******************************** Score ***************************************/
+
 unsigned int score = 0;
 
 unsigned int get_score(void) {
@@ -12,6 +14,8 @@ void set_score(unsigned int new_score) {
   sprintf(score_text, "Score: %u", score);
   gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
 }
+
+/**************************** Initialization **********************************/
 
 struct drawing_area_spec {
   GtkWidget *container;
@@ -32,20 +36,20 @@ GtkWidget *new_drawing_area(struct drawing_area_spec spec) {
   return result;
 }
 
+void new_game() {
+  set_grid_to_zero();
+  draw_tetramino();
+  new_shape();
+  fill_current_shape(current_shape.index + 1);
+  set_score(0);
+  gtk_widget_queue_draw(application.window);
+  g_timeout_add(500, on_timeout_event, NULL);
+}
+
 void initialize_horizontal_box() {
   application.hbox = gtk_hbox_new(TRUE, 10);
   gtk_container_add(GTK_CONTAINER(application.window), application.hbox);
   gtk_widget_show(application.hbox);
-}
-
-void initialize_grid() {
-  struct drawing_area_spec grid_spec;
-  grid_spec.container = application.hbox;
-  grid_spec.width = NUMBER_OF_COLUMNS * SQUARE_SIDE_LENGTH;
-  grid_spec.height = NUMBER_OF_ROWS * SQUARE_SIDE_LENGTH;
-  grid_spec.expose_event = G_CALLBACK(on_grid_expose_event);
-  application.grid = new_drawing_area(grid_spec);
-  gtk_widget_show(application.grid);
 }
 
 void initialize_vertical_box() {
@@ -104,6 +108,18 @@ void initialize_application() {
   new_game();
 }
 
+void initialize_grid() {
+  struct drawing_area_spec grid_spec;
+  grid_spec.container = application.hbox;
+  grid_spec.width = NUMBER_OF_COLUMNS * SQUARE_SIDE_LENGTH;
+  grid_spec.height = NUMBER_OF_ROWS * SQUARE_SIDE_LENGTH;
+  grid_spec.expose_event = G_CALLBACK(on_grid_expose_event);
+  application.grid = new_drawing_area(grid_spec);
+  gtk_widget_show(application.grid);
+}
+
+/******************************** Drawing *************************************/
+
 void fill_cell(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
   cairo_rectangle
@@ -151,6 +167,12 @@ void draw_next_piece(void) {
   cairo_destroy(cr);
 }
 
+void redraw() {
+  gtk_widget_queue_draw(application.window);
+}
+
+/********************************* Events *************************************/
+
 gint on_timeout_event(gpointer data) {
   if (!(move_shape(0, 1, 0))) {
     detect_lines();
@@ -160,6 +182,21 @@ gint on_timeout_event(gpointer data) {
   }
   g_timeout_add(500, on_timeout_event, NULL);
   return 0;
+}
+
+gboolean on_realize_event(GtkWidget *widget, gpointer data) {
+  gtk_widget_queue_draw(widget);
+  return TRUE;
+}
+
+gboolean on_grid_expose_event(GtkWidget *widget, gpointer data) {
+  draw_grid();
+  return TRUE;
+}
+
+gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data) {
+  draw_next_piece();
+  return TRUE;
 }
 
 gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
@@ -183,36 +220,8 @@ gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data
   return TRUE;
 }
 
-gboolean on_realize_event(GtkWidget *widget, gpointer data) {
-  gtk_widget_queue_draw(widget);
-  return TRUE;
-}
-
-gboolean on_grid_expose_event(GtkWidget *widget, gpointer data) {
-  draw_grid();
-  return TRUE;
-}
-
-gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data) {
-  draw_next_piece();
-  return TRUE;
-}
-
 gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data) {
   new_game();
   return TRUE;
 }
 
-void redraw() {
-  gtk_widget_queue_draw(application.window);
-}
-
-void new_game() {
-  set_grid_to_zero();
-  draw_tetramino();
-  new_shape();
-  fill_current_shape(current_shape.index + 1);
-  set_score(0);
-  gtk_widget_queue_draw(application.window);
-  g_timeout_add(500, on_timeout_event, NULL);
-}
