@@ -15,11 +15,11 @@ struct coordinates {
 
 struct coordinates coordinates_of_square(unsigned int square_index);
 void fill_current_shape(unsigned int color);
-bool valid_position();
+bool is_position_valid();
 int move_shape(int x, int y, int o);
 void draw_tetramino();
 int new_shape();
-bool complete_row(unsigned int row_index);
+bool is_row_completed(unsigned int row_index);
 void set_row_to_zero(unsigned int row_index);
 void remove_row(unsigned int removed_row_index);
 void detect_lines();

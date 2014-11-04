@@ -3,10 +3,11 @@
 #include "window.h"
 
 struct coordinates coordinates_of_square(unsigned int square_index) {
-  int oy = tetrominos[current_shape.index].coords[square_index][0];
-  int ox = tetrominos[current_shape.index].coords[square_index][1];
-  int cy = tetrominos[current_shape.index].center[0];
-  int cx = tetrominos[current_shape.index].center[1];
+  struct tetromino tetromino = tetrominos[current_shape.index];
+  int oy = tetromino.coords[square_index][0];
+  int ox = tetromino.coords[square_index][1];
+  int cy = tetromino.center[0];
+  int cx = tetromino.center[1];
   struct coordinates result;
   switch (current_shape.rotation_angle) {
   case ANGLE_0:
@@ -39,7 +40,7 @@ void fill_current_shape(unsigned int color) {
   }
 }
 
-bool valid_position() {
+bool is_position_valid() {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     struct coordinates coordinates = coordinates_of_square(square_index);
@@ -62,7 +63,7 @@ int move_shape(int x, int y, int o) {
   if (current_shape.rotation_angle < 0) {
     current_shape.rotation_angle += 4;
   }
-  int v = valid_position();
+  int v = is_position_valid();
   if (!v) {
     current_shape = old_shape;
   }
@@ -86,7 +87,7 @@ int new_shape() {
   current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;
   current_shape.rotation_angle = 0;
-  v = valid_position();
+  v = is_position_valid();
   if (v) {
     fill_current_shape(current_shape.index + 1);
     gtk_widget_queue_draw(application.window);
@@ -94,7 +95,7 @@ int new_shape() {
   return v;
 }
 
-bool complete_row(unsigned int row_index) {
+bool is_row_completed(unsigned int row_index) {
   unsigned int column_index;
   for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
     if (grid[row_index][column_index] == 0) {
@@ -128,13 +129,13 @@ void detect_lines() {
   unsigned int row_index;
   unsigned int count = 0;
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
-    if (complete_row(row_index)) {
+    if (is_row_completed(row_index)) {
       remove_row(row_index);
       count++;
     }
   }
   if (count > 0) {
-    score += 1 << (count - 1);
+    score += 1 << (2 * (count - 1));
     update_score();
   }
 }
