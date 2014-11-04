@@ -153,7 +153,7 @@ CMake, ...: generic and high-level languages to specify dependencies and packagi
 
 $ mkdir build
 $ cd build
-$ cmake ../
+$ cmake ../clean
 $ make
 
 $ clean/tetris &
