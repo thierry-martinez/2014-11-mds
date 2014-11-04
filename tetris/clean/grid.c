@@ -1,5 +1,3 @@
-
-
 #include "grid.h"
 #include "tetrominos.h"
 #include "window.h"
