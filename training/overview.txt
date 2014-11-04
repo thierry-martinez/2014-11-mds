@@ -1,32 +1,36 @@
 --------------------------------------------------------------------------------
-I- 26/08/2014
-II- 08/10/2014
-III- 02/11/2014
+I- 26/08/2014 - sections de la formation
+II- 08/10/2014 - fonctionnalités, pre et post, matériel
+III- 02/11/2014 - proposition de séances de travail 
 
 --------------------------------------------------------------------------------
-I- 26/08/2014
+I- 26/08/2014 - sections de la formation
 
 --------------------------------------------------------------------------------
-- CONV conventions d'écriture de code (Cédric et David) 2h
+- CONV conventions d'écriture de code : Cédric (et David)
 
-- PROD chaîne de production avec cmake (Thierry et Cédric) 3h
-- VERS versionnement avec git (Thierry et David) 3h
+- PROD build management - cmake :Thierry (et Cédric)
+- VERS version control - git : David (et Thierry)
 
-- TEST tests avec cppUnit (Cédric et Cécile) 3h
-- INT intégration continue avec jenkins (David et Thierry) 2h
+- TEST unit tests - cUnit : Cédric (et Cécile)
+- INT continuous integration - Travis : David (et Thierry)
 
-- PROJ méthodes de gestion de projets avec Scrum (Cécile et Cédric) 2h
-- SUIV outils de suivi avec bugzilla ou Mantis (Thierry et Cécile) 2h
+- PROJ project management - Scrum - XP : Cécile (et Cédric)
+- SUIV bug tracking- GitHub : Thierry (et Cécile)
 
 --------------------------------------------------------------------------------
 - technique Pomodoro ?
 
 --------------------------------------------------------------------------------
-II- 08/10/2014
-
+II- 08/10/2014 - fonctionnalités, pre et post, matériel
+II.1- fonctionnalités de base du code
+II.2- bogue
+II.3- nouvelle fonctionnalité
+II.4- pre et post
+II.5- installation, matériel et corrigés
 --------------------------------------------------------------------------------
 
-fonctionnalités de base du code : 
+II.1- fonctionnalités de base du code : 
 	- grille
 	- une forme qui tombe
 	- déplacer la forme à droite : bouton flèche droite
@@ -41,13 +45,15 @@ fonctionnalités de base du code :
 
 --------------------------------------------------------------------------------
 
-bogue découvert par George : "New Game" fonctionne mal
+II.2- bogue découvert par George : "New Game" fonctionne mal
 
 --------------------------------------------------------------------------------
-nouvelle fonctionnalité à développer : 
+II.3- nouvelle fonctionnalité à développer : 
 	 - pause
 
 --------------------------------------------------------------------------------
+II.4- pre et post
+
      pre : code versionné, non compilé
 
 AM 1 = 1h30 + 30 min pause + 1h30 :
@@ -86,7 +92,7 @@ AM 2 = 1h30 + 30 min pause + 1h30 :
      post : un code intégré
 
 --------------------------------------------------------------------------------
-ATTENTION : JOUR 2 déjeuner amélioré (2h) ?
+		ATTENTION : JOUR 2 déjeuner amélioré (2h) ?
 --------------------------------------------------------------------------------
      pre : 
 
@@ -125,6 +131,8 @@ PM 3 = 1h + 30 min pause + 1h30 :
      	    testées (TDD) et bien écrites ; outil de suivi mis à jour
 
 --------------------------------------------------------------------------------
+II.5- installation, matériel et corrigés
+
 installation :
 	     comptes GitHub !
 	     git, cmake
@@ -137,9 +145,7 @@ corrigés :
 	 un corrigé par session pratique
 
 --------------------------------------------------------------------------------
-III- 02/11/2014
-
-proposition de séances de travail 
+III- 02/11/2014 - proposition de séances de travail 
 
 mardi 4 novembre
  AM Cédric David Thierry Cécile
