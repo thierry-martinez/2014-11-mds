@@ -65,15 +65,10 @@ void fill_rectangle(cairo_t *cr, int tetromino_type, int i, int j) {
   cairo_stroke(cr);
 }
 
-gboolean realize(GtkWidget *widget, gpointer data) {
-  gtk_widget_queue_draw(widget);
-  return TRUE;
-}
-
-gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
+void draw_grid() {
   int row_index, column_index;
   
-  cairo_t* cr = gdk_cairo_create (widget->window);
+  cairo_t* cr = gdk_cairo_create (application.window->window);
   cairo_set_source_rgb(cr, WHITE.red, WHITE.green, WHITE.blue);
   cairo_paint(cr);
 
@@ -86,7 +81,15 @@ gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
     }
   }
   cairo_destroy(cr);
+}
+
+gboolean realize(GtkWidget *widget, gpointer data) {
+  gtk_widget_queue_draw(widget);
   return TRUE;
+}
+
+gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
+  draw_grid();
 }
 
 gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
