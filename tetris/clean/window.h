@@ -25,4 +25,6 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 void new_game();
 gboolean button_newgame_clicked(GtkWidget *widget, gpointer data);
 
+void initialize_grid();
+
 #endif
