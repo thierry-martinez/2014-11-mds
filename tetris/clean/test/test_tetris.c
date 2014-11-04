@@ -1,30 +1,32 @@
+
+/* CUnit files */
+#include "CUnit/Basic.h"
+
+/* Tetris files */
+#include "../grid.h"
+
+/* Standard library files */
 #include <stdio.h>
 #include <string.h>
-#include "CUnit/Basic.h"
-#include "../grid.h"
+
+
 
 /* Pointer to the file used by the tests. */
 static FILE* temp_file = NULL;
 
-/* The suite initialization function.
- * Opens the temporary file used by the tests.
- * Returns zero on success, non-zero otherwise.
- */
-int init_suite(void)
+/* Suite initialization */
+int init_suite()
 {
    return 0;
 }
 
-/* The suite cleanup function.
- * Closes the temporary file used by the tests.
- * Returns zero on success, non-zero otherwise.
- */
-int clean_suite(void)
+/* Suite termination */
+int clean_suite()
 {
    return 0;
 }
 
-void test_set_grid_to_zero(void)
+void test_set_grid_to_zero()
 {
   int row_index, column_index;
 
@@ -43,22 +45,22 @@ void test_set_grid_to_zero(void)
  */
 int main()
 {
-   CU_pSuite pSuite = NULL;
+   CU_pSuite Suite_grid = NULL;
 
    /* initialize the CUnit test registry */
    if (CUE_SUCCESS != CU_initialize_registry())
       return CU_get_error();
 
    /* add a suite to the registry */
-   pSuite = CU_add_suite("Suite_grid", init_suite, clean_suite);
-   if (NULL == pSuite) {
+   Suite_grid = CU_add_suite("Suite_grid", init_suite, clean_suite);
+   if ( Suite_grid == NULL ) {
       CU_cleanup_registry();
       return CU_get_error();
    }
 
    /* add the tests to the suite */
    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-   if (NULL == CU_add_test(pSuite, "test of set_grid_to_zero()", test_set_grid_to_zero))
+   if ( CU_add_test(Suite_grid, "test of set_grid_to_zero()", test_set_grid_to_zero) == NULL )
    {
       CU_cleanup_registry();
       return CU_get_error();
