@@ -1,0 +1,6 @@
+VERS
+
+git clone https://github.com/thierry-martinez/2014-11-mds.git
+
+au premier commit : 
+   proposition de paramétrer les variables globales name et email
