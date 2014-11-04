@@ -7,7 +7,7 @@ III- 02/11/2014 - proposition de séances de travail
 I- 26/08/2014 - sections de la formation
 
 --------------------------------------------------------------------------------
-- CONV conventions d'écriture de code : Cédric (et David)
+- CONV coding style : Cédric (et David)
 
 - PROD build management - cmake :Thierry (et Cédric)
 - VERS version control - git : David (et Thierry)
