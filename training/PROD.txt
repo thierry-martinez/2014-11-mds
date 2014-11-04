@@ -149,3 +149,12 @@ latexmk: automatic build for LaTeX
 CMake, ...: generic and high-level languages to specify dependencies and packaging rules
 ...
 
+--------------------------------------------------------------------------------
+
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make
+
+$ clean/tetris &
+--------------------------------------------------------------------------------
