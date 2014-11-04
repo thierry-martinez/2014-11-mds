@@ -3,65 +3,47 @@
 #include "grid.h"
 #include "tetrominos.h"
 #include "window.h"
-int column_index_of_square(unsigned int square_index) {
-  int oy = tetrominos[current_shape.index].coords[square_index][0];
-  int ox = tetrominos[current_shape.index].coords[square_index][1];
-  int cy = tetrominos[current_shape.index].center[0];
-  int cx = tetrominos[current_shape.index].center[1];
-  int x;
-  if (current_shape.rotation_angle == 0) {
-    x = ox;
-  }
-  if (current_shape.rotation_angle == 1) {
-    x = oy;
-  }
-  if (current_shape.rotation_angle == 2) {
-    x = cx - ox;
-  }
-  if (current_shape.rotation_angle == 3) {
-    x = cy - oy;
-  }
-  x += current_shape.column_index;
-  return x;
-}
 
-int row_index_of_square(unsigned int square_index) {
+struct coordinates coordinates_of_square(unsigned int square_index) {
   int oy = tetrominos[current_shape.index].coords[square_index][0];
   int ox = tetrominos[current_shape.index].coords[square_index][1];
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
-  int y;
+  struct coordinates result;
   if (current_shape.rotation_angle == 0) {
-    y = oy;
+    result.column = ox;
+    result.row = oy;
   }
   if (current_shape.rotation_angle == 1) {
-    y = cx - ox;
+    result.column = oy;
+    result.row = cx - ox;
   }
   if (current_shape.rotation_angle == 2) {
-    y = cy - oy;
+    result.column = cx - ox;
+    result.row = cy - oy;
   }
   if (current_shape.rotation_angle == 3) {
-    y = ox;
+    result.column = cy - oy;
+    result.row = ox;
   }
-  y += current_shape.row_index;
-  return y;
+  result.column += current_shape.column_index;
+  result.row += current_shape.row_index;
+  return result;
 }
 
 void fill_current_shape(unsigned int color) {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
-    int row_index = row_index_of_square(square_index);
-    int column_index = column_index_of_square(square_index);
-    grid[row_index][column_index] = color;
+    struct coordinates coordinates = coordinates_of_square(square_index);
+    grid[coordinates.row][coordinates.column] = color;
   }
 }
 
 bool valid_position() {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
-    int row_index = row_index_of_square(square_index);
-    int column_index = column_index_of_square(square_index);
-    if (!(column_index >= 0 && row_index >= 0 && column_index < NUMBER_OF_COLUMNS && row_index < NUMBER_OF_ROWS && grid[row_index][column_index] == 0)) {
+    struct coordinates coordinates = coordinates_of_square(square_index);
+    if (!(coordinates.column >= 0 && coordinates.row >= 0 && coordinates.column < NUMBER_OF_COLUMNS && coordinates.row < NUMBER_OF_ROWS && grid[coordinates.row][coordinates.column] == 0)) {
       return false;
     }
   }

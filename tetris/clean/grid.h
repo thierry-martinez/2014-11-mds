@@ -9,8 +9,11 @@
 static unsigned int const SQUARE_SIDE_LENGTH = 16;
 unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
 
-int column_index_of_square(unsigned int square_index);
-int row_index_of_square(unsigned int square_index);
+struct coordinates {
+  int column, row;
+};
+
+struct coordinates coordinates_of_square(unsigned int square_index);
 void fill_current_shape(unsigned int color);
 bool valid_position();
 int move_shape(int x, int y, int o);
