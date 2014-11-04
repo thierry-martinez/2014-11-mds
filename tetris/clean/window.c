@@ -1,5 +1,3 @@
-
-
 #include "window.h"
 
 struct drawing_area_spec {
