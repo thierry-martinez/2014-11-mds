@@ -6,9 +6,8 @@
 #include "grid.h"
 #include "window.h"
 
-int main(void) {
-  
 
+void initialize_grid() {
   gtk_init(0, NULL);
 
   application.window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -56,6 +55,10 @@ int main(void) {
   gtk_widget_show(application.hbox);
   gtk_widget_show(application.vbox);
   gtk_widget_show(application.window);
+}
+
+int main(void) {
+  initialize_grid();
   
   gtk_main();
   
