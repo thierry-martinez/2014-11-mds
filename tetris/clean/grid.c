@@ -111,7 +111,6 @@ bool is_row_completed(unsigned int row_index) {
   return true;
 }
 
-
 void set_row_to_zero(unsigned int row_index) {
   unsigned int column_index;
   for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
@@ -129,8 +128,6 @@ void remove_row(unsigned int removed_row_index) {
   set_row_to_zero(0);
 }
 
-
-
 void detect_lines(void) {
   unsigned int row_index;
   unsigned int count = 0;
@@ -145,7 +142,6 @@ void detect_lines(void) {
   }
 }
 
-
 void set_grid_to_zero(void) {
   unsigned int row_index, column_index;
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
@@ -154,5 +150,3 @@ void set_grid_to_zero(void) {
     }
   }
 }
-
-
