@@ -85,7 +85,7 @@ int move_shape(int x, int y, int o) {
     current_shape = old_shape;
   }
   fill_current_shape(current_shape.index + 1);
-  gtk_widget_queue_draw(application.window);
+  redraw();
   return v;
 }
 

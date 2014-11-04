@@ -146,6 +146,10 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
   return TRUE;
 }
 
+void redraw() {
+  gtk_widget_queue_draw(application.window);
+}
+
 void new_game() {
   set_grid_to_zero();
   srand(time(NULL));

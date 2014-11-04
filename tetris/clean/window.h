@@ -27,4 +27,6 @@ gboolean button_newgame_clicked(GtkWidget *widget, gpointer data);
 
 void initialize_grid();
 
+void redraw();
+
 #endif
