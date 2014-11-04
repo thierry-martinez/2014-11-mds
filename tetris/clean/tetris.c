@@ -8,7 +8,7 @@
 
 
 int main(void) {
-  initialize_grid();
+  initialize_application();
   
   gtk_main();
   
