@@ -19,12 +19,16 @@ struct drawing_area_spec {
   GCallback expose_event;
 };
 
+void signal_connect(GtkWidget *widget, char *event_name, GCallback callback) {
+  g_signal_connect(G_OBJECT(widget), event_name, callback, NULL);
+}
+
 GtkWidget *new_drawing_area(struct drawing_area_spec spec) {
   GtkWidget *result = gtk_drawing_area_new();
   gtk_container_add(GTK_CONTAINER(spec.container), result);
   gtk_widget_set_size_request(result, spec.width, spec.height);
-  g_signal_connect(G_OBJECT(result), "realize", G_CALLBACK(on_realize_event), NULL);
-  g_signal_connect(G_OBJECT(result), "expose_event", spec.expose_event, NULL);
+  signal_connect(result, "realize", G_CALLBACK(on_realize_event));
+  signal_connect(result, "expose_event", spec.expose_event);
   return result;
 }
 
@@ -52,15 +56,17 @@ void initialize_vertical_box() {
 
 void initialize_button_newgame() {
   application.button_newgame = gtk_button_new_with_label("New game");
-  g_signal_connect(application.button_newgame, "clicked",
-                   G_CALLBACK(on_button_newgame_click_event), NULL);
-  gtk_container_add(GTK_CONTAINER(application.vbox), application.button_newgame);
+  g_signal_connect
+    (application.button_newgame, "clicked",
+     G_CALLBACK(on_button_newgame_click_event), NULL);
+  gtk_container_add
+    (GTK_CONTAINER(application.vbox), application.button_newgame);
   gtk_widget_show(application.button_newgame);
 }
 
 void initialize_score_label() {
   application.score_label = gtk_label_new("");
-  gtk_container_add(GTK_CONTAINER (application.vbox), application.score_label);
+  gtk_container_add(GTK_CONTAINER(application.vbox), application.score_label);
   gtk_widget_show(application.score_label);
 }
 
@@ -76,8 +82,11 @@ void initialize_next_piece() {
 
 void initialize_window() {
   application.window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  g_signal_connect(application.window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-  g_signal_connect(G_OBJECT(application.window), "key_press_event", G_CALLBACK(on_key_press_event), NULL);
+  g_signal_connect
+    (application.window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+  g_signal_connect
+    (G_OBJECT(application.window), "key_press_event", 
+     G_CALLBACK(on_key_press_event), NULL);
   gtk_widget_show(application.window);
 }
 
@@ -97,7 +106,8 @@ void initialize_application() {
 
 void fill_cell(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
-  cairo_rectangle(cr, j * SQUARE_SIDE_LENGTH + line_width, i * SQUARE_SIDE_LENGTH + line_width, SQUARE_SIDE_LENGTH - line_width, SQUARE_SIDE_LENGTH - line_width);
+  cairo_rectangle
+    (cr, j * SQUARE_SIDE_LENGTH + line_width, i * SQUARE_SIDE_LENGTH + line_width, SQUARE_SIDE_LENGTH - line_width, SQUARE_SIDE_LENGTH - line_width);
   float red   = tetrominos[tetromino_type].color.red;
   float green = tetrominos[tetromino_type].color.green;
   float blue  = tetrominos[tetromino_type].color.blue;
