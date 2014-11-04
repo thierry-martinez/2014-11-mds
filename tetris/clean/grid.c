@@ -89,6 +89,10 @@ int move_shape(int x, int y, int o) {
   return v;
 }
 
+void move_shape_to_bottom() {
+  while (move_shape(0, 1, 0));
+}
+
 void draw_tetramino() {
   next_shape = rand() % NUMBER_OF_TETROMINO_TYPES;
 }

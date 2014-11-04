@@ -140,7 +140,7 @@ gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
     move_shape(0, 1, 0);
     break;
   case GDK_KEY_space:
-    while (move_shape(0, 1, 0));
+    move_shape_to_bottom();
     break;
   }
   return TRUE;

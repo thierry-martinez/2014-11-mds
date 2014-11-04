@@ -22,4 +22,6 @@ void remove_row(unsigned int removed_row_index);
 void detect_lines();
 void set_grid_to_zero();
 
+void move_shape_to_bottom();
+
 #endif
