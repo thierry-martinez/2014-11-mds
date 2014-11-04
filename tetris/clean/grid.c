@@ -40,6 +40,14 @@ void fill_current_shape(unsigned int color) {
   }
 }
 
+void hide_current_shape(void) {
+  fill_current_shape(0);
+}
+
+void show_current_shape(void) {
+  fill_current_shape(current_shape.index + 1);
+}
+
 bool is_position_valid() {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
@@ -53,34 +61,28 @@ bool is_position_valid() {
 
 int move_shape(int x, int y, int o) {
   struct shape old_shape = current_shape;
-  fill_current_shape(0);
+  hide_current_shape();
   current_shape.column_index += x;
   current_shape.row_index += y;
-  current_shape.rotation_angle += o;
-  if (current_shape.rotation_angle > 3) {
-    current_shape.rotation_angle -= 4;
-  }
-  if (current_shape.rotation_angle < 0) {
-    current_shape.rotation_angle += 4;
-  }
+  current_shape.rotation_angle = (current_shape.rotation_angle + o + 4) % 4;
   int v = is_position_valid();
   if (!v) {
     current_shape = old_shape;
   }
-  fill_current_shape(current_shape.index + 1);
+  show_current_shape();
   redraw();
   return v;
 }
 
-void move_shape_to_bottom() {
+void move_shape_to_bottom(void) {
   while (move_shape(0, 1, 0));
 }
 
-void draw_tetramino() {
+void draw_tetramino(void) {
   next_shape = rand() % NUMBER_OF_TETROMINO_TYPES;
 }
 
-int new_shape() {
+int new_shape(void) {
   int v;
   current_shape.index = next_shape;
   draw_tetramino();
@@ -89,8 +91,8 @@ int new_shape() {
   current_shape.rotation_angle = 0;
   v = is_position_valid();
   if (v) {
-    fill_current_shape(current_shape.index + 1);
-    gtk_widget_queue_draw(application.window);
+    show_current_shape();
+    redraw();
   }
   return v;
 }
@@ -125,7 +127,7 @@ void remove_row(unsigned int removed_row_index) {
 
 
 
-void detect_lines() {
+void detect_lines(void) {
   unsigned int row_index;
   unsigned int count = 0;
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
@@ -135,13 +137,12 @@ void detect_lines() {
     }
   }
   if (count > 0) {
-    score += 1 << (2 * (count - 1));
-    update_score();
+    set_score(get_score() + 1 << (2 * (count - 1)));
   }
 }
 
 
-void set_grid_to_zero() {
+void set_grid_to_zero(void) {
   unsigned int row_index, column_index;
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {

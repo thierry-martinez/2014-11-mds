@@ -8,9 +8,8 @@
 
 
 int main(void) {
+  srand(time(NULL));
   initialize_application();
-  
   gtk_main();
-  
   return EXIT_SUCCESS;
 }
