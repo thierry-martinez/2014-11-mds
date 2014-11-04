@@ -68,7 +68,7 @@ void fill_cell(cairo_t *cr, int tetromino_type, int i, int j) {
 void draw_grid() {
   int row_index, column_index;
   
-  cairo_t* cr = gdk_cairo_create (application.window->window);
+  cairo_t* cr = gdk_cairo_create (application.drawing_area->window);
   cairo_set_source_rgb(cr, WHITE.red, WHITE.green, WHITE.blue);
   cairo_paint(cr);
 
@@ -90,6 +90,7 @@ gboolean realize(GtkWidget *widget, gpointer data) {
 
 gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data) {
   draw_grid();
+  return TRUE;
 }
 
 gboolean next_piece_expose_event(GtkWidget *widget, gpointer data) {
