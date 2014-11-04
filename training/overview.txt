@@ -9,14 +9,14 @@ I- 26/08/2014 - sections de la formation
 --------------------------------------------------------------------------------
 - CONV conventions d'écriture de code : Cédric (et David)
 
-- PROD chaîne de production avec cmake :Thierry (et Cédric)
-- VERS versionnement avec git : David (et Thierry)
+- PROD build management - cmake :Thierry (et Cédric)
+- VERS version control - git : David (et Thierry)
 
-- TEST tests avec cUnit : Cédric (et Cécile)
-- INT intégration continue avec Travis : David (et Thierry)
+- TEST unit tests - cUnit : Cédric (et Cécile)
+- INT continuous integration - Travis : David (et Thierry)
 
-- PROJ gestion de projets avec Scrum et XP : Cécile (et Cédric)
-- SUIV outils de suivi avec GitHub : Thierry (et Cécile)
+- PROJ project management - Scrum - XP : Cécile (et Cédric)
+- SUIV bug tracking- GitHub : Thierry (et Cécile)
 
 --------------------------------------------------------------------------------
 - technique Pomodoro ?
