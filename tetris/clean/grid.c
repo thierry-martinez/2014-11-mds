@@ -10,21 +10,23 @@ struct coordinates coordinates_of_square(unsigned int square_index) {
   int cy = tetrominos[current_shape.index].center[0];
   int cx = tetrominos[current_shape.index].center[1];
   struct coordinates result;
-  if (current_shape.rotation_angle == 0) {
+  switch (current_shape.rotation_angle) {
+  case ANGLE_0:
     result.column = ox;
     result.row = oy;
-  }
-  if (current_shape.rotation_angle == 1) {
+    break;
+  case ANGLE_90:
     result.column = oy;
     result.row = cx - ox;
-  }
-  if (current_shape.rotation_angle == 2) {
+    break;
+  case ANGLE_180:
     result.column = cx - ox;
     result.row = cy - oy;
-  }
-  if (current_shape.rotation_angle == 3) {
+    break;
+  case ANGLE_270:
     result.column = cy - oy;
     result.row = ox;
+    break;
   }
   result.column += current_shape.column_index;
   result.row += current_shape.row_index;
