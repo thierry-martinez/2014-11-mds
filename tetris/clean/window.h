@@ -8,21 +8,35 @@
 #include "tetrominos.h"
 
 struct application {
-  GtkWidget *button_newgame, *hbox, *vbox, *drawing_area, *next_piece;
+  GtkWidget *button_newgame, *hbox, *vbox, *grid, *next_piece;
   GtkWidget *window;
   GtkWidget *score_label;
 } application;
 
-unsigned int score;
+/******************************** Score ***************************************/
 
-void fill_rectangle(cairo_t *cr, int tetromino_type, int i, int j);
-gboolean realize(GtkWidget *widget, gpointer data);
-gboolean drawing_area_expose_event(GtkWidget *widget, gpointer data);
-gboolean next_piece_expose_event(GtkWidget *widget, gpointer data);
-void update_score();
-gint timeout(gpointer data);
-gboolean key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
-void new_game();
-gboolean button_newgame_clicked(GtkWidget *widget, gpointer data);
+unsigned int get_score(void);
+void set_score(unsigned int new_score);
+
+/**************************** Initialization **********************************/
+
+void new_game(void);
+void initialize_application(void);
+void initialize_grid(void);
+
+/******************************** Drawing *************************************/
+
+void fill_cell(cairo_t *cr, int tetromino_type, int i, int j);
+void redraw(void);
+
+/********************************* Events *************************************/
+
+gint on_timeout_event(gpointer data);
+gboolean on_realize_event(GtkWidget *widget, gpointer data);
+gboolean on_grid_expose_event(GtkWidget *widget, gpointer data);
+gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data);
+
+gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
+gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data);
 
 #endif
