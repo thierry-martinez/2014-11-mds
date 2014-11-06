@@ -81,7 +81,7 @@ void initialize_next_piece() {
   next_piece_spec.height = 4 * SQUARE_SIDE_LENGTH;
   next_piece_spec.expose_event = G_CALLBACK(on_next_piece_expose_event);
   application.next_piece = new_drawing_area(next_piece_spec);
-  gtk_widget_show(application.next_piece);  
+  gtk_widget_show(application.next_piece);
 }
 
 void initialize_window() {
@@ -89,7 +89,7 @@ void initialize_window() {
   g_signal_connect
     (application.window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
   g_signal_connect
-    (G_OBJECT(application.window), "key_press_event", 
+    (G_OBJECT(application.window), "key_press_event",
      G_CALLBACK(on_key_press_event), NULL);
   gtk_widget_show(application.window);
 }

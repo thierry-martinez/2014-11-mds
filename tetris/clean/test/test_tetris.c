@@ -32,10 +32,10 @@ void test_set_grid_to_zero()
 
   set_grid_to_zero();
 
-  for ( row_index = 0 ; row_index < NUMBER_OF_ROWS ; ++row_index ) {
-    for ( column_index = 0 ; column_index < NUMBER_OF_COLUMNS ;
+  for ( row_index = 0; row_index < NUMBER_OF_ROWS; ++row_index ) {
+    for ( column_index = 0; column_index < NUMBER_OF_COLUMNS;
                              ++column_index ) {
-      CU_ASSERT( grid[row_index][column_index] == 0 );       
+      CU_ASSERT( grid[row_index][column_index] == 0 );
     }
   }
 }

@@ -52,10 +52,10 @@ bool is_position_valid() {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     struct coordinates coordinates = coordinates_of_square(square_index);
-    if (coordinates.column < 0 
-        || coordinates.row < 0 
-        || coordinates.column >= NUMBER_OF_COLUMNS 
-        || coordinates.row >= NUMBER_OF_ROWS 
+    if (coordinates.column < 0
+        || coordinates.row < 0
+        || coordinates.column >= NUMBER_OF_COLUMNS
+        || coordinates.row >= NUMBER_OF_ROWS
         || grid[coordinates.row][coordinates.column] != 0) {
       return false;
     }
