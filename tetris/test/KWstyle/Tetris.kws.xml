@@ -4,5 +4,33 @@
 
 <Description>
     <LineLength>78</LineLength>
+    <Indent>
+      <type>SPACE</type>
+      <size>4</size>
+    </Indent>
+    <SemicolonSpace>0</SemicolonSpace>
+    <Comments>
+      <begin>/**</begin>
+      <middle> *</middle>
+      <end>*/</end>
+      <checkWrongComment>true</checkWrongComment>
+    </Comments>
+    <Tabs>1</Tabs>
+    <Spaces>0</Spaces>
+    <EmptyLines>2</EmptyLines>
+    <Operator>
+      <spaceBefore>1</spaceBefore>
+      <spaceAfter>1</spaceAfter>
+    </Operator>
+    <Struct>
+      <regex>[a-z]<regex>
+    </Struct>
+    <Typedefs>
+      <regex>[A-Z]</regex>
+    </Typedefs>
+    <Functions>
+      <regex>[a-z]</regex>
+      <length>10</length>
+    </Functions>
 </Description>
 
