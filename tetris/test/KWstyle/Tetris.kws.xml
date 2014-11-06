@@ -3,34 +3,60 @@
 <Project>Tetris</Project>
 
 <Description>
+
+    <!-- Lines must not contain more than 78 characters  -->
     <LineLength>78</LineLength>
+    
+    <!-- Indentation must contain 4 spaces  -->
     <Indent>
       <type>SPACE</type>
       <size>4</size>
     </Indent>
+    
+    <!-- No space after a semicolon  -->
     <SemicolonSpace>0</SemicolonSpace>
+    
+    <!-- Comments must respect the old ANSI C writing format  -->
+    <!-- Comments must not contain two consecutive identical words  -->
     <Comments>
       <begin>/**</begin>
       <middle> *</middle>
       <end>*/</end>
       <checkWrongComment>true</checkWrongComment>
     </Comments>
+    
+
+    <!-- Tabulations are not allowed  -->
     <Tabs>1</Tabs>
+    
+    <!-- Spaces are not allowed at end of lines  -->
     <Spaces>0</Spaces>
+    
+    <!-- Containing more than two consecutive empty lines is not allowed for a source file -->
     <EmptyLines>2</EmptyLines>
+    
+    <!-- There must be a space just before and just after any operator -->
     <Operator>
       <spaceBefore>1</spaceBefore>
       <spaceAfter>1</spaceAfter>
     </Operator>
+    
+    <!-- Structure names must begin with a small letter  -->
     <Struct>
       <regex>[a-z]<regex>
     </Struct>
+    
+    <!-- Typedef names must begin with a capital letter  -->
     <Typedefs>
       <regex>[A-Z]</regex>
     </Typedefs>
+    
+    <!-- Function names must begin with a small letter  -->
+    <!-- Function bodies must not contain more than 10 lines  -->
     <Functions>
       <regex>[a-z]</regex>
       <length>10</length>
     </Functions>
+    
 </Description>
 
