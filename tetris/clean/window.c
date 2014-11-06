@@ -1,6 +1,6 @@
 #include "window.h"
 
-/******************************** Score ***************************************/
+/* Score */
 
 unsigned int score = 0;
 
@@ -15,7 +15,7 @@ void set_score(unsigned int new_score) {
   gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
 }
 
-/**************************** Initialization **********************************/
+/* Initialization */
 
 struct drawing_area_spec {
   GtkWidget *container;
@@ -118,12 +118,15 @@ void initialize_grid() {
   gtk_widget_show(application.grid);
 }
 
-/******************************** Drawing *************************************/
+/* Drawing */
 
 void fill_cell(cairo_t *cr, int tetromino_type, int i, int j) {
   const int line_width = 2;
-  cairo_rectangle
-    (cr, j * SQUARE_SIDE_LENGTH + line_width, i * SQUARE_SIDE_LENGTH + line_width, SQUARE_SIDE_LENGTH - line_width, SQUARE_SIDE_LENGTH - line_width);
+  double top_left_abscissa = j * SQUARE_SIDE_LENGTH + line_width;
+  double top_left_ordinate = i * SQUARE_SIDE_LENGTH + line_width;
+  double width = SQUARE_SIDE_LENGTH - line_width;
+  double height = SQUARE_SIDE_LENGTH - line_width;
+  cairo_rectangle(cr, top_left_abscissa, top_left_ordinate, width, height);
   float red   = tetrominos[tetromino_type].color.red;
   float green = tetrominos[tetromino_type].color.green;
   float blue  = tetrominos[tetromino_type].color.blue;
@@ -171,7 +174,7 @@ void redraw() {
   gtk_widget_queue_draw(application.window);
 }
 
-/********************************* Events *************************************/
+/* Events */
 
 gint on_timeout_event(gpointer data) {
   if (!(move_shape(0, 1, 0))) {
@@ -199,7 +202,9 @@ gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
-gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data) {
+gboolean on_key_press_event(GtkWidget *widget,
+                            GdkEventKey *event,
+                            gpointer data) {
   switch (event->keyval) {
   case GDK_Left:
     move_shape(-1, 0, 0);

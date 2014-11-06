@@ -13,30 +13,32 @@ struct application {
   GtkWidget *score_label;
 } application;
 
-/******************************** Score ***************************************/
+/* Score */
 
 unsigned int get_score(void);
 void set_score(unsigned int new_score);
 
-/**************************** Initialization **********************************/
+/* Initialization */
 
 void new_game(void);
 void initialize_application(void);
 void initialize_grid(void);
 
-/******************************** Drawing *************************************/
+/* Drawing */
 
 void fill_cell(cairo_t *cr, int tetromino_type, int i, int j);
 void redraw(void);
 
-/********************************* Events *************************************/
+/* Events */
 
 gint on_timeout_event(gpointer data);
 gboolean on_realize_event(GtkWidget *widget, gpointer data);
 gboolean on_grid_expose_event(GtkWidget *widget, gpointer data);
 gboolean on_next_piece_expose_event(GtkWidget *widget, gpointer data);
 
-gboolean on_key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
+gboolean on_key_press_event(GtkWidget *widget,
+                            GdkEventKey *event,
+                            gpointer data);
 gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data);
 
 #endif

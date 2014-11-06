@@ -4,6 +4,8 @@
 
 <Description>
 
+    <Verbose>3</Verbose>
+
     <!-- Lines must not contain more than 78 characters  -->
     <LineLength>78</LineLength>
     

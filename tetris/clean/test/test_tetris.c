@@ -33,7 +33,8 @@ void test_set_grid_to_zero()
   set_grid_to_zero();
 
   for ( row_index = 0 ; row_index < NUMBER_OF_ROWS ; ++row_index ) {
-    for ( column_index = 0 ; column_index < NUMBER_OF_COLUMNS ; ++column_index ) {
+    for ( column_index = 0 ; column_index < NUMBER_OF_COLUMNS ;
+                             ++column_index ) {
       CU_ASSERT( grid[row_index][column_index] == 0 );       
     }
   }
@@ -60,8 +61,9 @@ int main()
 
    /* add the tests to the suite */
    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-   if ( CU_add_test(Suite_grid, "test of set_grid_to_zero()", test_set_grid_to_zero) == NULL )
-   {
+   if ( CU_add_test(Suite_grid,
+                    "test of set_grid_to_zero()",
+                    test_set_grid_to_zero) == NULL ) {
       CU_cleanup_registry();
       return CU_get_error();
    }
