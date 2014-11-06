@@ -94,13 +94,17 @@ void initialize_window() {
   gtk_widget_show(application.window);
 }
 
+void initialize_layout() {
+  initialize_horizontal_box();
+  initialize_vertical_box();
+}
+
 void initialize_application() {
   gtk_init(0, NULL);
 
   initialize_window();
-  initialize_horizontal_box();
+  initialize_layout();
   initialize_grid();
-  initialize_vertical_box();
   initialize_button_newgame();
   initialize_score_label();
   initialize_next_piece();
