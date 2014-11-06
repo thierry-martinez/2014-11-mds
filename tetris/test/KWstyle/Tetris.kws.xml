@@ -10,7 +10,7 @@
     <!-- Indentation must contain 4 spaces  -->
     <Indent>
       <type>SPACE</type>
-      <size>4</size>
+      <size>2</size>
     </Indent>
     
     <!-- No space after a semicolon  -->
