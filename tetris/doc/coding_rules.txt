@@ -1,0 +1,7 @@
+1. Naming conventions
+  - camel case is used
+  - local variable names begin with a small letter
+  - global variable names begin with a capital letter
+  - structure names begin with a small letter
+  - typedef names begin with a capital letter
+  - function names begin with a small letter
