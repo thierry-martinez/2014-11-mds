@@ -145,8 +145,6 @@ void detect_lines(void) {
 void set_grid_to_zero(void) {
   unsigned int row_index, column_index;
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
-    for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-      grid[row_index][column_index] = 0;
-    }
+    set_row_to_zero(row_index);
   }
 }
