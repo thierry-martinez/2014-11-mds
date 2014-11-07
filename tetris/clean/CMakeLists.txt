@@ -5,12 +5,10 @@ project(tetris)
 set(SOURCES window.c grid.c)
 
 add_executable(tetris tetris.c ${SOURCES})
-add_executable(test_tetris test/test_tetris.c ${SOURCES})
 
 find_package(GTK2 2.6 REQUIRED gtk)
 include_directories(${GTK2_INCLUDE_DIRS})
 target_link_libraries(tetris ${GTK2_LIBRARIES})
 
-# link the libraries to the executable
-target_link_libraries(test_tetris ${GTK2_LIBRARIES})
-target_link_libraries (test_tetris cunit)
+add_subdirectory(test)
+
