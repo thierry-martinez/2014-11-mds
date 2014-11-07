@@ -9,14 +9,13 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
-/* Pointer to the file used by the tests. */
-static FILE* temp_file = NULL;
+static size_t random_row_index;
+static size_t const ZERO = 0;
 
 /* Suite initialization */
 int init_suite()
 {
+   random_row_index = rand() % NUMBER_OF_ROWS;
    return 0;
 }
 
@@ -24,6 +23,15 @@ int init_suite()
 int clean_suite()
 {
    return 0;
+}
+
+void test_set_row_to_zero()
+{
+  size_t columnIndex;
+  set_row_to_zero(random_row_index);
+  for ( columnIndex = 0; columnIndex < NUMBER_OF_COLUMNS; ++columnIndex )
+    CU_ASSERT( grid[random_row_index][columnIndex] == ZERO )
+  
 }
 
 void test_set_grid_to_zero()
@@ -35,7 +43,7 @@ void test_set_grid_to_zero()
   for ( row_index = 0; row_index < NUMBER_OF_ROWS; ++row_index ) {
     for ( column_index = 0; column_index < NUMBER_OF_COLUMNS;
                              ++column_index ) {
-      CU_ASSERT( grid[row_index][column_index] == 0 );
+      CU_ASSERT( grid[row_index][column_index] == ZERO );
     }
   }
 }
@@ -61,9 +69,9 @@ int main()
 
    /* add the tests to the suite */
    /* NOTE - ORDER IS IMPORTANT - MUST TEST fread() AFTER fprintf() */
-   if ( CU_add_test(Suite_grid,
-                    "test of set_grid_to_zero()",
-                    test_set_grid_to_zero) == NULL ) {
+   if ((NULL == CU_add_test(Suite_grid, "test of set_row_to_zero()", test_set_row_to_zero)) ||
+       (NULL == CU_add_test(Suite_grid, "test of set_grid_to_zero()", test_set_grid_to_zero)))
+   {
       CU_cleanup_registry();
       return CU_get_error();
    }
