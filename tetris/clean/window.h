@@ -8,7 +8,8 @@
 #include "tetrominos.h"
 
 struct application {
-  GtkWidget *button_newgame, *hbox, *vbox, *grid, *next_piece;
+  GtkWidget *button_newgame, *grid, *next_piece;
+  GtkWidget * horizontalLayout, * verticalLayout;
   GtkWidget *window;
   GtkWidget *score_label;
 } application;

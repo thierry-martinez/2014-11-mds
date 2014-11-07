@@ -47,15 +47,15 @@ void new_game() {
 }
 
 void initialize_horizontal_box() {
-  application.hbox = gtk_hbox_new(TRUE, 10);
-  gtk_container_add(GTK_CONTAINER(application.window), application.hbox);
-  gtk_widget_show(application.hbox);
+  application.horizontalLayout = gtk_hbox_new(TRUE, 10);
+  gtk_container_add(GTK_CONTAINER(application.window), application.horizontalLayout);
+  gtk_widget_show(application.horizontalLayout);
 }
 
 void initialize_vertical_box() {
-  application.vbox = gtk_vbox_new(TRUE, 10);
-  gtk_container_add(GTK_CONTAINER(application.hbox), application.vbox);
-  gtk_widget_show(application.vbox);
+  application.verticalLayout = gtk_vbox_new(TRUE, 10);
+  gtk_container_add(GTK_CONTAINER(application.horizontalLayout), application.verticalLayout);
+  gtk_widget_show(application.verticalLayout);
 }
 
 void initialize_button_newgame() {
@@ -64,19 +64,19 @@ void initialize_button_newgame() {
     (application.button_newgame, "clicked",
      G_CALLBACK(on_button_newgame_click_event), NULL);
   gtk_container_add
-    (GTK_CONTAINER(application.vbox), application.button_newgame);
+    (GTK_CONTAINER(application.verticalLayout), application.button_newgame);
   gtk_widget_show(application.button_newgame);
 }
 
 void initialize_score_label() {
   application.score_label = gtk_label_new("");
-  gtk_container_add(GTK_CONTAINER(application.vbox), application.score_label);
+  gtk_container_add(GTK_CONTAINER(application.verticalLayout), application.score_label);
   gtk_widget_show(application.score_label);
 }
 
 void initialize_next_piece() {
   struct drawing_area_spec next_piece_spec;
-  next_piece_spec.container = application.vbox;
+  next_piece_spec.container = application.verticalLayout;
   next_piece_spec.width = 4 * SQUARE_SIDE_LENGTH;
   next_piece_spec.height = 4 * SQUARE_SIDE_LENGTH;
   next_piece_spec.expose_event = G_CALLBACK(on_next_piece_expose_event);
@@ -114,7 +114,7 @@ void initialize_application() {
 
 void initialize_grid() {
   struct drawing_area_spec grid_spec;
-  grid_spec.container = application.hbox;
+  grid_spec.container = application.horizontalLayout;
   grid_spec.width = NUMBER_OF_COLUMNS * SQUARE_SIDE_LENGTH;
   grid_spec.height = NUMBER_OF_ROWS * SQUARE_SIDE_LENGTH;
   grid_spec.expose_event = G_CALLBACK(on_grid_expose_event);
