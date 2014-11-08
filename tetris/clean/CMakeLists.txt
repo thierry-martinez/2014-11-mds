@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 cmake_policy(VERSION 2.8)
 project(tetris)
 
+SET( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wextra" )
+
 set(SOURCES window.c grid.c)
 
 add_executable(tetris tetris.c ${SOURCES})
