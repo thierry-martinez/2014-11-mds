@@ -36,7 +36,7 @@ void fill_current_shape(unsigned int color) {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     struct coordinates coordinates = coordinates_of_square(square_index);
-    grid[coordinates.row][coordinates.column] = color;
+    game.grid[coordinates.row][coordinates.column] = color;
   }
 }
 
@@ -56,7 +56,7 @@ bool is_position_valid() {
         || coordinates.row < 0
         || coordinates.column >= NUMBER_OF_COLUMNS
         || coordinates.row >= NUMBER_OF_ROWS
-        || grid[coordinates.row][coordinates.column] != 0) {
+        || game.grid[coordinates.row][coordinates.column] != 0) {
       return false;
     }
   }
@@ -104,7 +104,7 @@ int new_shape(void) {
 bool is_row_completed(unsigned int row_index) {
   unsigned int column_index;
   for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-    if (grid[row_index][column_index] == 0) {
+    if (game.grid[row_index][column_index] == 0) {
       return false;
     }
   }
@@ -114,7 +114,7 @@ bool is_row_completed(unsigned int row_index) {
 void set_row_to_zero(unsigned int row_index) {
   unsigned int column_index;
   for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-    grid[row_index][column_index] = 0;
+    game.grid[row_index][column_index] = 0;
   }
 }
 
@@ -122,7 +122,7 @@ void remove_row(unsigned int removed_row_index) {
   unsigned int row_index, column_index;
   for (row_index = removed_row_index; row_index > 0; row_index--) {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-      grid[row_index][column_index] = grid[row_index-1][column_index];
+      game.grid[row_index][column_index] = game.grid[row_index-1][column_index];
     }
   }
   set_row_to_zero(0);

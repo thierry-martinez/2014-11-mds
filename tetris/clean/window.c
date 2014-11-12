@@ -2,16 +2,14 @@
 
 /* Score */
 
-unsigned int score = 0;
-
 unsigned int get_score(void) {
-  return score;
+  return game.score;
 }
 
 void set_score(unsigned int new_score) {
   char score_text[255];
-  score = new_score;
-  sprintf(score_text, "Score: %u", score);
+  game.score = new_score;
+  sprintf(score_text, "Score: %u",  game.score);
   gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
 }
 
@@ -153,7 +151,7 @@ void draw_grid() {
 
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-      int tetromino_type = grid[row_index][column_index];
+      int tetromino_type = game.grid[row_index][column_index];
       if (tetromino_type != 0) {
         fill_cell(cr, tetromino_type - 1, row_index, column_index);
       }
