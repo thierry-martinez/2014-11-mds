@@ -38,7 +38,7 @@ static struct tetromino {
   { POLYOMINO_L , { 1, 1 }, BLUE },
   { POLYOMINO_O , { 1, 1 }, YELLOW },
   { POLYOMINO_T , { 2, 1 }, PURPLE },
-  { POLYOMINO_Z , { 2, 1 }, PURPLE },
-  { POLYOMINO_N , { 2, 1 }, PURPLE } };
+  { POLYOMINO_Z , { 2, 1 }, ORANGE },
+  { POLYOMINO_N , { 2, 1 }, TURQUOISE } };
 
 #endif

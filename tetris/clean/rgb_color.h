@@ -1,11 +1,15 @@
 #ifndef TETRIS_RGB_COLOR_H
 #define TETRIS_RGB_COLOR_H
 
-#define RED    {1,0,0}
-#define GREEN  {0,1,0}
-#define BLUE   {0,0,1}
-#define YELLOW {1,1,0}
-#define PURPLE {1,0,1}
+#define RGB(R,G,B) {R / 255.0, G / 255.0, B / 255.0}
+	
+#define RED    RGB(0xc0, 0x39, 0x2b)
+#define GREEN  RGB(0x27, 0xae, 0x60)
+#define BLUE   RGB(0x29, 0x80, 0xb9)
+#define YELLOW RGB(0xf3, 0x9c, 0x12)
+#define PURPLE RGB(0x8e, 0x44, 0xad)
+#define ORANGE RGB(0xd3, 0x54, 0x00)
+#define TURQUOISE	RGB(0x1a, 0xbc, 0x9c)
 
 typedef struct rgb_color {
   float red;
