@@ -5,7 +5,7 @@
 
 #define DIMENSION 2
 #define NUMBER_OF_SQUARES 4
-#define NUMBER_OF_TETROMINO_TYPES 5
+#define NUMBER_OF_TETROMINO_TYPES 7
 
 /* Official names of tetrominos
  * Do NOT modify these names */
@@ -14,6 +14,8 @@
 #define POLYOMINO_L { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }
 #define POLYOMINO_O { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }
 #define POLYOMINO_T { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }
+#define POLYOMINO_Z { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 2, 0 } }
+#define POLYOMINO_N { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 1 } }
 
 enum RotationAngle { ANGLE_0=0, ANGLE_90=1, ANGLE_180=2, ANGLE_270=3 };
 
@@ -35,6 +37,8 @@ static struct tetromino {
   { POLYOMINO_J , { 1, 1 }, GREEN },
   { POLYOMINO_L , { 1, 1 }, BLUE },
   { POLYOMINO_O , { 1, 1 }, YELLOW },
-  { POLYOMINO_T , { 2, 1 }, PURPLE } };
+  { POLYOMINO_T , { 2, 1 }, PURPLE },
+  { POLYOMINO_Z , { 2, 1 }, PURPLE },
+  { POLYOMINO_N , { 2, 1 }, PURPLE } };
 
 #endif
