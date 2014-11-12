@@ -2,16 +2,14 @@
 
 /* Score */
 
-unsigned int score = 0;
-
 unsigned int get_score(void) {
-  return score;
+  return game.score;
 }
 
 void set_score(unsigned int new_score) {
   char score_text[255];
-  score = new_score;
-  sprintf(score_text, "Score: %u", score);
+  game.score = new_score;
+  sprintf(score_text, "Score: %u",  game.score);
   gtk_label_set_text(GTK_LABEL(application.score_label), score_text);
 }
 
@@ -42,8 +40,8 @@ void new_game() {
   new_shape();
   fill_current_shape(current_shape.index + 1);
   set_score(0);
+  set_state(Normal);
   gtk_widget_queue_draw(application.window);
-  g_timeout_add(500, on_timeout_event, NULL);
 }
 
 void initialize_horizontal_box() {
@@ -112,6 +110,7 @@ void initialize_application() {
   initialize_score_label();
   initialize_next_piece();
 
+  g_timeout_add(500, on_timeout_event, NULL);
   new_game();
 }
 
@@ -153,7 +152,7 @@ void draw_grid() {
 
   for (row_index = 0; row_index < NUMBER_OF_ROWS; row_index++) {
     for (column_index = 0; column_index < NUMBER_OF_COLUMNS; column_index++) {
-      int tetromino_type = grid[row_index][column_index];
+      int tetromino_type = game.grid[row_index][column_index];
       if (tetromino_type != 0) {
         fill_cell(cr, tetromino_type - 1, row_index, column_index);
       }
@@ -184,10 +183,12 @@ void redraw() {
 /* Events */
 
 gint on_timeout_event(gpointer data) {
-  if (!(move_shape(0, 1, 0))) {
-    detect_lines();
-    if (!new_shape()) {
-      return 0;
+  if (get_state() == Normal) {
+    if (!(move_shape(0, 1, 0))) {
+      detect_lines();
+      if (!new_shape()) {
+	  set_state(Finished);
+      }
     }
   }
   g_timeout_add(500, on_timeout_event, NULL);

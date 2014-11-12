@@ -7,7 +7,23 @@
 #define NUMBER_OF_COLUMNS 16
 
 static unsigned int const SQUARE_SIDE_LENGTH = 24;
-unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
+
+typedef enum {
+  Normal = 0,
+  Paused,
+  Finished
+} GameState;
+
+struct game {
+  unsigned int score;
+  unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
+  GameState state;
+} game;
+
+/* Status */
+
+GameState get_state(void);
+void set_state(unsigned int new_state);
 
 struct coordinates {
   int column, row;
