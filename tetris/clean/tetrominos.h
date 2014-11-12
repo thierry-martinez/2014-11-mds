@@ -3,7 +3,7 @@
 
 #include "rgb_color.h"
 
-#define DIMENSION 2
+#define SPACE_DIMENSION 2
 #define NUMBER_OF_SQUARES 4
 #define NUMBER_OF_TETROMINO_TYPES 5
 
@@ -27,8 +27,8 @@ struct shape {
 unsigned int next_shape;
 
 static struct tetromino {
-  int coords[NUMBER_OF_SQUARES][DIMENSION];
-  int center[DIMENSION];
+  int coords[NUMBER_OF_SQUARES][SPACE_DIMENSION];
+  int center[SPACE_DIMENSION];
   rgb_color color;
 } tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
   { POLYOMINO_I , { 3, 0 }, RED },
