@@ -32,11 +32,11 @@ struct coordinates coordinates_of_square(unsigned int square_index) {
   return result;
 }
 
-void fill_current_shape(unsigned int color) {
+void fill_current_shape(unsigned int tetromino_type) {
   unsigned int square_index;
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
     struct coordinates coordinates = coordinates_of_square(square_index);
-    grid[coordinates.row][coordinates.column] = color;
+    grid[coordinates.row][coordinates.column] = tetromino_type;
   }
 }
 
@@ -63,12 +63,12 @@ bool is_position_valid() {
   return true;
 }
 
-int move_shape(int x, int y, int o) {
+int move_shape(int column_increment, int row_increment, int angle_increment) {
   struct shape old_shape = current_shape;
   hide_current_shape();
-  current_shape.column_index += x;
-  current_shape.row_index += y;
-  current_shape.rotation_angle = (current_shape.rotation_angle + o + 4) % 4;
+  current_shape.column_index += column_increment;
+  current_shape.row_index += row_increment;
+  current_shape.rotation_angle = (current_shape.rotation_angle + angle_increment + 4) % 4;
   int v = is_position_valid();
   if (!v) {
     current_shape = old_shape;
