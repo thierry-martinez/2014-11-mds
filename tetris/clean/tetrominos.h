@@ -28,7 +28,7 @@ unsigned int next_shape;
 
 static struct tetromino {
   int coords[NUMBER_OF_SQUARES][SPACE_DIMENSION];
-  int center[SPACE_DIMENSION];
+  int rotation_center[SPACE_DIMENSION];
   rgb_color color;
 } tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
   { POLYOMINO_I , { 3, 0 }, RED },
