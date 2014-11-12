@@ -11,31 +11,38 @@
  * Do NOT modify these names */
 
 /* (0,0) (1,0) (2,0) (3,0) */
-#define POLYOMINO_I { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }
+#define SHAPE_I { {0,0}, {1,0}, {2,0}, {3,0} }
+#define POLYOMINO_I {SHAPE_I, {3,0}, RED }
 
 /* (0,0) (1,0) (2,0)
  * (0,1) */
-#define POLYOMINO_J { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }
+#define SHAPE_J { {0,0}, {0,1}, {1,0}, {2,0} }
+#define POLYOMINO_J {SHAPE_J, {1,1}, GREEN}
 
 /* (0,0)
  * (0,1) (1,1) (2,1) */
-#define POLYOMINO_L { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }
+#define SHAPE_L { {0,1}, {0,0}, {1,1}, {2,1} }
+#define POLYOMINO_L {SHAPE_L, {1,1}, BLUE}
 
 /* (0,0) (1,0)
  * (0,1) (1,1) */
-#define POLYOMINO_O { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }
+#define SHAPE_O { {0,0}, {0,1}, {1,0}, {1,1} }
+#define POLYOMINO_O {SHAPE_O, {1,1}, YELLOW}
 
 /*   (0,1) (1,0) (2,0)
  *         (1,1) */
-#define POLYOMINO_T { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }
+#define SHAPE_T { {0,0}, {1,0}, {1,1}, {2,0} }
+#define POLYOMINO_T {SHAPE_T, {2,1}, PURPLE}
 
 /*       (1,0) (2,0)
  * (0,1) (1,1) */
-#define POLYOMINO_Z { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 2, 0 } }
+#define SHAPE_Z { {0,1}, {1,1}, {1,0}, {2,0} }
+#define POLYOMINO_Z {SHAPE_Z, {2,1}, PURPLE}
 
 /* (0,0) (1,0)
  *       (1,1) (2,1) */
-#define POLYOMINO_N { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 1 } }
+#define SHAPE_N { {0,0}, {1,0}, {1,1}, {2,1} }
+#define POLYOMINO_N {SHAPE_N, {2,1}, PURPLE}
 
 enum RotationAngle { ANGLE_0=0, ANGLE_90=1, ANGLE_180=2, ANGLE_270=3 };
 
@@ -53,12 +60,7 @@ static struct tetromino {
   int rotation_center[SPACE_DIMENSION];
   rgb_color color;
 } tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
-  { POLYOMINO_I , { 3, 0 }, RED },
-  { POLYOMINO_J , { 1, 1 }, GREEN },
-  { POLYOMINO_L , { 1, 1 }, BLUE },
-  { POLYOMINO_O , { 1, 1 }, YELLOW },
-  { POLYOMINO_T , { 2, 1 }, PURPLE },
-  { POLYOMINO_Z , { 2, 1 }, PURPLE },
-  { POLYOMINO_N , { 2, 1 }, PURPLE } };
+      POLYOMINO_I, POLYOMINO_J, POLYOMINO_L, POLYOMINO_O,
+      POLYOMINO_T, POLYOMINO_Z, POLYOMINO_N };
 
 #endif
