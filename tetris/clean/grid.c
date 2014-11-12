@@ -148,3 +148,13 @@ void set_grid_to_zero(void) {
     set_row_to_zero(row_index);
   }
 }
+
+/* Status */
+
+GameState get_state(void) {
+  return game.state;
+}
+
+void set_state(GameState new_state) {
+  game.state = new_state;
+}

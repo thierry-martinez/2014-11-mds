@@ -20,6 +20,11 @@ struct game {
   GameState state;
 } game;
 
+/* Status */
+
+GameState get_state(void);
+void set_state(unsigned int new_state);
+
 struct coordinates {
   int column, row;
 };

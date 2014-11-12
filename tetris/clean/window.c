@@ -40,8 +40,8 @@ void new_game() {
   new_shape();
   fill_current_shape(current_shape.index + 1);
   set_score(0);
+  set_state(Normal);
   gtk_widget_queue_draw(application.window);
-  g_timeout_add(500, on_timeout_event, NULL);
 }
 
 void initialize_horizontal_box() {
@@ -110,6 +110,7 @@ void initialize_application() {
   initialize_score_label();
   initialize_next_piece();
 
+  g_timeout_add(500, on_timeout_event, NULL);
   new_game();
 }
 
@@ -182,10 +183,12 @@ void redraw() {
 /* Events */
 
 gint on_timeout_event(gpointer data) {
-  if (!(move_shape(0, 1, 0))) {
-    detect_lines();
-    if (!new_shape()) {
-      return 0;
+  if (get_state() == Normal) {
+    if (!(move_shape(0, 1, 0))) {
+      detect_lines();
+      if (!new_shape()) {
+	  set_state(Finished);
+      }
     }
   }
   g_timeout_add(500, on_timeout_event, NULL);
