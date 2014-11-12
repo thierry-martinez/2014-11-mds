@@ -9,12 +9,32 @@
 
 /* Official names of tetrominos
  * Do NOT modify these names */
+
+/* (0,0) (1,0) (2,0) (3,0) */
 #define POLYOMINO_I { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 } }
+
+/* (0,0) (1,0) (2,0)
+ * (0,1) */
 #define POLYOMINO_J { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 2, 0 } }
+
+/* (0,0)
+ * (0,1) (1,1) (2,1) */
 #define POLYOMINO_L { { 0, 1 }, { 0, 0 }, { 1, 1 }, { 2, 1 } }
+
+/* (0,0) (1,0)
+ * (0,1) (1,1) */
 #define POLYOMINO_O { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }
+
+/*   (0,1) (1,0) (2,0)
+ *         (1,1) */
 #define POLYOMINO_T { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 0 } }
+
+/*       (1,0) (2,0)
+ * (0,1) (1,1) */
 #define POLYOMINO_Z { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 2, 0 } }
+
+/* (0,0) (1,0)
+ *       (1,1) (2,1) */
 #define POLYOMINO_N { { 0, 0 }, { 1, 0 }, { 1, 1 }, { 2, 1 } }
 
 enum RotationAngle { ANGLE_0=0, ANGLE_90=1, ANGLE_180=2, ANGLE_270=3 };
