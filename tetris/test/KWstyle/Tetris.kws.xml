@@ -9,10 +9,12 @@
     <!-- Lines must not contain more than 78 characters  -->
     <LineLength>78</LineLength>
     
-    <!-- Indentation must contain 4 spaces  -->
+    <!-- Indentation must contain 2 spaces  -->
     <Indent>
       <type>SPACE</type>
       <size>2</size>
+      <noHeader>false</noHeader>
+      <allowBlockLine>false</allowBlockLine>
     </Indent>
     
     <!-- No space after a semicolon  -->
