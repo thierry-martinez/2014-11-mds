@@ -4,10 +4,12 @@
 
 struct coordinates coordinates_of_square(unsigned int square_index) {
   struct tetromino tetromino = tetrominos[current_shape.index];
-  int oy = tetromino.coords[square_index][0];
-  int ox = tetromino.coords[square_index][1];
-  int cy = tetromino.rotation_center[0];
-  int cx = tetromino.rotation_center[1];
+  Point topLeftCorner = tetromino.coords[square_index];
+  Point center = tetromino.rotation_center;
+  int oy = getAbscissa(topLeftCorner);
+  int ox = getOrdinate(topLeftCorner);
+  int cy = getAbscissa(center);
+  int cx = getOrdinate(center);
   struct coordinates result;
   switch (current_shape.rotation_angle) {
   case ANGLE_0:

@@ -4,7 +4,7 @@ project(tetris)
 
 SET( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wextra" )
 
-set(SOURCES window.c grid.c)
+set(SOURCES window.c grid.c point.c)
 
 add_executable(tetris tetris.c ${SOURCES})
 

@@ -2,6 +2,7 @@
 #define TETRIS_TETROMINOS_H
 
 #include "rgb_color.h"
+#include "point.h"
 
 #define SPACE_DIMENSION 2
 #define NUMBER_OF_SQUARES 4
@@ -56,8 +57,8 @@ struct shape {
 unsigned int next_shape;
 
 static struct tetromino {
-  int coords[NUMBER_OF_SQUARES][SPACE_DIMENSION];
-  int rotation_center[SPACE_DIMENSION];
+  Point coords[NUMBER_OF_SQUARES];
+  Point rotation_center;
   rgb_color color;
 } tetrominos[NUMBER_OF_TETROMINO_TYPES] = {
       POLYOMINO_I, POLYOMINO_J, POLYOMINO_L, POLYOMINO_O,
