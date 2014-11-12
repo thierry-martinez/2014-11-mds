@@ -40,7 +40,10 @@ void new_game() {
   new_shape();
   fill_current_shape(current_shape.index + 1);
   set_score(0);
+
   set_state(Normal);
+  update_pause_button();
+
   gtk_widget_queue_draw(application.window);
 }
 
@@ -56,14 +59,28 @@ void initialize_vertical_box() {
   gtk_widget_show(application.verticalLayout);
 }
 
-void initialize_button_newgame() {
+void initialize_buttons() {
+  GtkWidget *bbox = gtk_hbox_new(TRUE, 10);
+  gtk_container_add(GTK_CONTAINER(application.verticalLayout), bbox);
+
   application.button_newgame = gtk_button_new_with_label("New game");
+  application.button_pause = gtk_button_new_with_label("Pause");
+
   g_signal_connect
     (application.button_newgame, "clicked",
      G_CALLBACK(on_button_newgame_click_event), NULL);
+  g_signal_connect
+    (application.button_pause, "clicked",
+     G_CALLBACK(on_button_pause_click_event), NULL);
+
   gtk_container_add
-    (GTK_CONTAINER(application.verticalLayout), application.button_newgame);
+    (GTK_CONTAINER(bbox), application.button_newgame);
+  gtk_container_add
+    (GTK_CONTAINER(bbox), application.button_pause);
+
+  gtk_widget_show(bbox);
   gtk_widget_show(application.button_newgame);
+  gtk_widget_show(application.button_pause);
 }
 
 void initialize_score_label() {
@@ -106,7 +123,7 @@ void initialize_application() {
   initialize_window();
   initialize_layout();
   initialize_grid();
-  initialize_button_newgame();
+  initialize_buttons();
   initialize_score_label();
   initialize_next_piece();
 
@@ -122,6 +139,14 @@ void initialize_grid() {
   grid_spec.expose_event = G_CALLBACK(on_grid_expose_event);
   application.grid = new_drawing_area(grid_spec);
   gtk_widget_show(application.grid);
+}
+
+void update_pause_button() {
+  if (game.state == Normal) {
+    gtk_button_set_label(GTK_BUTTON(application.button_pause), "Pause");
+  } else if (game.state == Paused) {
+    gtk_button_set_label(GTK_BUTTON(application.button_pause), "Resume");
+  }
 }
 
 /* Drawing */
@@ -238,3 +263,12 @@ gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data) {
   return TRUE;
 }
 
+gboolean on_button_pause_click_event(GtkWidget *widget, gpointer data) {
+  if (game.state == Normal) {
+    game.state = Paused;
+  } else if (game.state == Paused) {
+    game.state = Normal;
+  }
+  update_pause_button();
+  return TRUE;
+}

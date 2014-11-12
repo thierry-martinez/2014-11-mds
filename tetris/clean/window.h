@@ -8,7 +8,7 @@
 #include "tetrominos.h"
 
 struct application {
-  GtkWidget *button_newgame, *grid, *next_piece;
+  GtkWidget *button_newgame, *button_pause, *grid, *next_piece;
   GtkWidget * horizontalLayout, * verticalLayout;
   GtkWidget *window;
   GtkWidget *score_label;
@@ -24,6 +24,8 @@ void set_score(unsigned int new_score);
 void new_game(void);
 void initialize_application(void);
 void initialize_grid(void);
+
+void update_pause_button(void);
 
 /* Drawing */
 
@@ -41,5 +43,6 @@ gboolean on_key_press_event(GtkWidget *widget,
                             GdkEventKey *event,
                             gpointer data);
 gboolean on_button_newgame_click_event(GtkWidget *widget, gpointer data);
+gboolean on_button_pause_click_event(GtkWidget *widget, gpointer data);
 
 #endif
