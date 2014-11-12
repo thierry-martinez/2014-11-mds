@@ -16,13 +16,13 @@
 
 /* (0,0) (1,0) (2,0)
  * (0,1) */
-#define SHAPE_J { {0,0}, {0,1}, {1,0}, {2,0} }
-#define POLYOMINO_J {SHAPE_J, {1,1}, GREEN}
+#define SHAPE_L { {0,0}, {0,1}, {1,0}, {2,0} }
+#define POLYOMINO_L {SHAPE_L, {1,1}, BLUE}
 
 /* (0,0)
  * (0,1) (1,1) (2,1) */
-#define SHAPE_L { {0,1}, {0,0}, {1,1}, {2,1} }
-#define POLYOMINO_L {SHAPE_L, {1,1}, BLUE}
+#define SHAPE_J { {0,1}, {0,0}, {1,1}, {2,1} }
+#define POLYOMINO_J {SHAPE_J, {1,1}, GREEN}
 
 /* (0,0) (1,0)
  * (0,1) (1,1) */
@@ -36,13 +36,13 @@
 
 /*       (1,0) (2,0)
  * (0,1) (1,1) */
-#define SHAPE_Z { {0,1}, {1,1}, {1,0}, {2,0} }
-#define POLYOMINO_Z {SHAPE_Z, {2,1}, ORANGE}
+#define SHAPE_N { {0,1}, {1,1}, {1,0}, {2,0} }
+#define POLYOMINO_N {SHAPE_N, {2,1}, TURQUOISE}
 
 /* (0,0) (1,0)
  *       (1,1) (2,1) */
-#define SHAPE_N { {0,0}, {1,0}, {1,1}, {2,1} }
-#define POLYOMINO_N {SHAPE_N, {2,1}, TURQUOISE}
+#define SHAPE_Z { {0,0}, {1,0}, {1,1}, {2,1} }
+#define POLYOMINO_Z {SHAPE_Z, {2,1}, ORANGE}
 
 enum RotationAngle { ANGLE_0=0, ANGLE_90=1, ANGLE_180=2, ANGLE_270=3 };
 
