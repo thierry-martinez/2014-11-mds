@@ -92,6 +92,9 @@ void initialize_window() {
     (G_OBJECT(application.window), "key_press_event",
      G_CALLBACK(on_key_press_event), NULL);
   gtk_widget_show(application.window);
+
+  gtk_window_set_position(GTK_WINDOW(application.window), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_resizable(GTK_WINDOW(application.window), FALSE);
 }
 
 void initialize_layout() {

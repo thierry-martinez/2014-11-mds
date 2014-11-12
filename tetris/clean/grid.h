@@ -6,7 +6,7 @@
 #define NUMBER_OF_ROWS 16
 #define NUMBER_OF_COLUMNS 16
 
-static unsigned int const SQUARE_SIDE_LENGTH = 16;
+static unsigned int const SQUARE_SIDE_LENGTH = 24;
 unsigned int grid[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
 
 struct coordinates {
