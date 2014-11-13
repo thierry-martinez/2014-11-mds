@@ -35,7 +35,7 @@ void hide_current_shape(void);
 void show_current_shape(void);
 bool is_position_valid(void);
 int move_shape(int x, int y, int o);
-void draw_tetramino(void);
+unsigned int random_tetromino_type(void);
 int new_shape(void);
 bool is_row_completed(unsigned int row_index);
 void set_row_to_zero(unsigned int row_index);

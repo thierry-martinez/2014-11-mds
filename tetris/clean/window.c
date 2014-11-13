@@ -36,7 +36,7 @@ GtkWidget *new_drawing_area(struct drawing_area_spec spec) {
 
 void new_game() {
   set_grid_to_zero();
-  draw_tetramino();
+  next_tetromino_type = random_tetromino_type();
   new_shape();
   fill_current_shape(current_shape.index + 1);
   set_score(0);

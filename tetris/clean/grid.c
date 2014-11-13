@@ -84,14 +84,14 @@ void move_shape_to_bottom(void) {
   while (move_shape(0, 1, 0));
 }
 
-void draw_tetramino(void) {
-  next_tetromino_type = rand() % NUMBER_OF_TETROMINO_TYPES;
+unsigned int random_tetromino_type(void) {
+  return rand() % NUMBER_OF_TETROMINO_TYPES;
 }
 
 int new_shape(void) {
   int v;
   current_shape.index = next_tetromino_type;
-  draw_tetramino();
+  next_tetromino_type = random_tetromino_type();
   current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;
   current_shape.rotation_angle = 0;
