@@ -54,7 +54,7 @@ struct shape {
   unsigned int rotation_angle;
 } current_shape;
 
-unsigned int next_shape;
+unsigned int next_tetromino_type;
 
 static struct tetromino {
   Point coords[NUMBER_OF_SQUARES];

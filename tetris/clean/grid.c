@@ -85,12 +85,12 @@ void move_shape_to_bottom(void) {
 }
 
 void draw_tetramino(void) {
-  next_shape = rand() % NUMBER_OF_TETROMINO_TYPES;
+  next_tetromino_type = rand() % NUMBER_OF_TETROMINO_TYPES;
 }
 
 int new_shape(void) {
   int v;
-  current_shape.index = next_shape;
+  current_shape.index = next_tetromino_type;
   draw_tetramino();
   current_shape.column_index = NUMBER_OF_COLUMNS / 2;
   current_shape.row_index = 0;

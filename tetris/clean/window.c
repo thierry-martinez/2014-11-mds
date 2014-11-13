@@ -194,9 +194,9 @@ void draw_next_piece(void) {
   cairo_paint(cr);
 
   for (square_index = 0; square_index < NUMBER_OF_SQUARES; square_index++) {
-    int i = getAbscissa(tetrominos[next_shape].coords[square_index]);
-    int j = 2 + getOrdinate(tetrominos[next_shape].coords[square_index]);
-    fill_cell(cr, next_shape, i, j);
+    int i = getAbscissa(tetrominos[next_tetromino_type].coords[square_index]);
+    int j = 2 + getOrdinate(tetrominos[next_tetromino_type].coords[square_index]);
+    fill_cell(cr, next_tetromino_type, i, j);
   }
   cairo_destroy(cr);
 }
