@@ -1,35 +1,39 @@
 --------------------------------------------------------------------------------
-I- 26/08/2014 - sections de la formation
+I- 26/08/2014 et 21/11/2014 - sections de la formation
 II- 08/10/2014 - fonctionnalités, pre et post, matériel
 III- 02/11/2014 - proposition de séances de travail 
 
 --------------------------------------------------------------------------------
-I- 26/08/2014 - sections de la formation
+I- 26/08/2014 et 21/11/2014 - sections de la formation
 
 --------------------------------------------------------------------------------
-- CONV coding style : Cédric (et David)
+- CONV coding style : Cédric et David
 
-- PROD build management - cmake :Thierry (et Cédric)
-- VERS version control - git : David (et Thierry)
+- PROD build management - cmake : Thierry
+- VERS version control - git : David et Cédric
 
-- TEST unit tests - cUnit : Cédric (et Cécile)
-- INT continuous integration - Travis : David (et Thierry)
+- TEST unit tests - cUnit : Cécile, Cédric et David
+- INT continuous integration - Travis : David et Cédric
 
-- PROJ project management - Scrum - XP : Cécile (et Cédric)
+- PROJ project management - Scrum - XP : Cécile
 - SUIV bug tracking- GitHub : Thierry (et Cécile)
+
+en sus, en amont :
+- CODE écriture et récriture du code : Thierry puis Cédric et David
 
 --------------------------------------------------------------------------------
 - technique Pomodoro ?
 
 --------------------------------------------------------------------------------
 II- 08/10/2014 - fonctionnalités, pre et post, matériel
+
 II.1- fonctionnalités de base du code
 II.2- bogue
 II.3- nouvelle fonctionnalité
 II.4- pre et post
 II.5- installation, matériel et corrigés
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 II.1- fonctionnalités de base du code : 
 	- grille
 	- une forme qui tombe
@@ -44,7 +48,6 @@ II.1- fonctionnalités de base du code :
 	- fin de jeu si grille saturée en hauteur
 
 --------------------------------------------------------------------------------
-
 II.2- bogue découvert par George : "New Game" fonctionne mal
 
 --------------------------------------------------------------------------------
