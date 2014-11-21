@@ -83,7 +83,7 @@ atelier 10 pays 1 critère ?
 --------------------------------------------------------------------------------
 Implémenter Scrum tout au long de la formation ?
 
-Ajout de Cécile dans outils-de-suivi.txt
+Ajout de Cécile dans SUIV.txt
 
 --------------------------------------------------------------------------------
 II- 08/10/2014
