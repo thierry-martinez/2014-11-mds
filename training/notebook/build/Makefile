@@ -1,12 +1,10 @@
-IMAGES=compilation_chain compilation_graph
-
-all: $(IMAGES:=.png) $(IMAGES:=.pdf)
-
+SOURCES=gtk_example.c initialization.c
+CFLAGS=$(shell pkg-config --cflags gtk+-2.0)
+LDLIBS=$(shell pkg-config --libs gtk+-2.0)
+    
+all: gtk_example
+    
 clean:
-	rm -f $(IMAGES:=.png) $(IMAGES:=.pdf)
-
-%.pdf: %.tex
-	pdflatex $<
-
-%.png: %.pdf
-	convert -density 100 $< $@
+	rm -f gtk_example $(SOURCES:.c=.o)
+    
+gtk_example: $(SOURCES:.c=.o)
